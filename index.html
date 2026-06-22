@@ -56,19 +56,43 @@
             scroll-behavior: smooth;
         }
 
-        /* Декоративные фоновые свечения */
+        /* Декоративные фоновые свечения с плавной GPU-анимацией */
         .glow-overlay {
             position: absolute;
-            width: 400px;
-            height: 400px;
+            width: 450px;
+            height: 450px;
             background: var(--primary);
             filter: blur(180px);
             opacity: 0.12;
             z-index: 0;
             pointer-events: none;
+            will-change: transform, opacity;
         }
-        .glow-1 { top: 5%; left: 10%; }
-        .glow-2 { bottom: 15%; right: 10%; background: var(--secondary); }
+        
+        .glow-1 {
+            top: 5%;
+            left: 10%;
+            animation: float-glow-1 28s infinite ease-in-out;
+        }
+        
+        .glow-2 {
+            bottom: 15%;
+            right: 10%;
+            background: var(--secondary);
+            animation: float-glow-2 32s infinite ease-in-out;
+        }
+
+        @keyframes float-glow-1 {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.12; }
+            50% { transform: translate(80px, 60px) scale(1.2); opacity: 0.18; }
+            100% { transform: translate(0, 0) scale(1); opacity: 0.12; }
+        }
+
+        @keyframes float-glow-2 {
+            0% { transform: translate(0, 0) scale(1.1); opacity: 0.15; }
+            50% { transform: translate(-80px, -50px) scale(0.9); opacity: 0.08; }
+            100% { transform: translate(0, 0) scale(1.1); opacity: 0.15; }
+        }
 
         .wrapper {
             width: 100%;
