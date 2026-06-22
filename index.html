@@ -827,6 +827,68 @@
             color: var(--primary);
         }
 
+        .download-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 16px;
+            width: 100%;
+        }
+
+        .download-btn {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 14px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+
+        .download-btn:hover {
+            background: rgba(0, 240, 255, 0.05);
+            border-color: rgba(0, 240, 255, 0.35);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 240, 255, 0.05);
+        }
+
+        .download-icon {
+            width: 24px;
+            height: 24px;
+            color: var(--primary);
+            flex-shrink: 0;
+            filter: drop-shadow(var(--primary-glow));
+        }
+
+        .download-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.25;
+            text-align: left;
+        }
+
+        .download-sub {
+            font-size: 10px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .download-title {
+            font-size: 13px;
+            color: #ffffff;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 500px) {
+            .download-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (max-width: 600px) {
             .features-grid {
                 grid-template-columns: 1fr;
@@ -1081,9 +1143,39 @@
             <div class="step-list">
                 <div class="step-item">
                     <div class="step-number">01</div>
-                    <div class="step-content">
+                    <div class="step-content" style="width: 100%;">
                         <div class="step-title">Установите приложение HAPP</div>
-                        <div class="step-desc">Скачайте и установите HAPP (Hiddify) для вашей платформы: Android, iOS (iPhone/iPad), Windows или macOS. Это бесплатный сторонний клиент с открытым исходным кодом.</div>
+                        <div class="step-desc">Скачайте и установите официальный клиент HAPP для вашей операционной системы:</div>
+                        <div class="download-grid">
+                            <a href="https://apps.apple.com/ru/app/happ-proxy-utility-plus/id6746188973" target="_blank" class="download-btn">
+                                <svg class="download-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-1 .04-2.21.67-2.93 1.49-.62.69-1.16 1.84-1.01 2.96 1.12.09 2.27-.58 2.95-1.39z"/></svg>
+                                <div class="download-text">
+                                    <span class="download-sub">App Store (RU)</span>
+                                    <span class="download-title">iOS / macOS</span>
+                                </div>
+                            </a>
+                            <a href="https://apps.apple.com/us/app/happ-proxy-utility/id6504287215" target="_blank" class="download-btn">
+                                <svg class="download-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-1 .04-2.21.67-2.93 1.49-.62.69-1.16 1.84-1.01 2.96 1.12.09 2.27-.58 2.95-1.39z"/></svg>
+                                <div class="download-text">
+                                    <span class="download-sub">App Store (US)</span>
+                                    <span class="download-title">iOS / macOS</span>
+                                </div>
+                            </a>
+                            <a href="https://play.google.com/store/apps/details?id=com.happproxy" target="_blank" class="download-btn">
+                                <svg class="download-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M5.25 3.278c-.015.06-.025.137-.025.228v17c0 .09.01.168.025.228l9.646-9.646-9.646-9.646zm1.122-.924L15.358 11.34l3.148-3.148L6.372 2.354zm12.986 9.832L21 12l-1.642-.846-3.148 3.148 3.148 3.148zm-12.986 9.46l12.134-5.838-3.148-3.148-8.986 8.986z"/></svg>
+                                <div class="download-text">
+                                    <span class="download-sub">Google Play</span>
+                                    <span class="download-title">Android</span>
+                                </div>
+                            </a>
+                            <a href="https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x64.exe" target="_blank" class="download-btn">
+                                <svg class="download-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.45H0V3.449zM0 12.45h9.75v9.45L0 20.551v-8.102zM10.95 1.95L24 0v11.55H10.95V1.95zM10.95 12.45H24v11.55l-13.05-1.95v-9.6z"/></svg>
+                                <div class="download-text">
+                                    <span class="download-sub">Скачать .exe</span>
+                                    <span class="download-title">Windows</span>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <div class="step-item">
