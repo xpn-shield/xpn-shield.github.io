@@ -1358,11 +1358,39 @@
                 const serverIp = data.server_address;
                 const clientIp = data.client_ip;
 
-                if (ipDisplay) ipDisplay.textContent = clientIp;
+                // Получаем реальный внешний IP клиента через внешние API для обхода unix-сокета
+                let clientIpReal = clientIp;
+                try {
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 2500);
+                    const ipifyRes = await fetch('https://api.ipify.org?format=json', { signal: controller.signal });
+                    clearTimeout(timeoutId);
+                    if (ipifyRes.ok) {
+                        const ipifyData = await ipifyRes.json();
+                        clientIpReal = ipifyData.ip;
+                    }
+                } catch (e) {
+                    try {
+                        const controller2 = new AbortController();
+                        const timeoutId2 = setTimeout(() => controller2.abort(), 2500);
+                        const backupRes = await fetch('https://ip.seeip.org/jsonip', { signal: controller2.signal });
+                        clearTimeout(timeoutId2);
+                        if (backupRes.ok) {
+                            const backupData = await backupRes.json();
+                            clientIpReal = backupData.ip;
+                        }
+                    } catch (e2) {
+                        console.log("Внешние сервисы проверки IP недоступны, используем fallback");
+                    }
+                }
+
+                if (ipDisplay) {
+                    ipDisplay.textContent = clientIpReal === "unix:" ? "Локальный (unix)" : clientIpReal;
+                }
 
                 // Проверяем, идет ли трафик через защищенное соединение (IP клиента равен IP сервера)
-                const isSecured = (clientIp === serverIp) || 
-                                  (clientIp === "127.0.0.1" && serverIp === "127.0.0.1");
+                const isSecured = (clientIpReal === serverIp) || 
+                                  (clientIpReal === "127.0.0.1" && serverIp === "127.0.0.1");
 
                 if (isSecured) {
                     if (shieldText) {
