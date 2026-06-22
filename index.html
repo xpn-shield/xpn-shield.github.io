@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XPN — Приватный VPN Нового Поколения</title>
+    <!-- Шрифты Orbitron и Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #03050c;
+            --card-bg: rgba(6, 10, 23, 0.75);
+            --primary: #00f0ff;
+            --primary-glow: 0 0 20px rgba(0, 240, 255, 0.5);
+            --primary-border: rgba(0, 240, 255, 0.18);
+            --secondary: #9d00ff;
+            --secondary-glow: 0 0 15px rgba(157, 0, 255, 0.4);
+            --text-color: #e2e8f0;
+            --text-muted: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(rgba(0, 240, 255, 0.08) 1px, transparent 0),
+                radial-gradient(rgba(157, 0, 255, 0.04) 1.5px, transparent 0),
+                linear-gradient(to right, rgba(0, 240, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 240, 255, 0.015) 1px, transparent 1px);
+            background-size: 40px 40px, 80px 80px, 20px 20px, 20px 20px;
+            background-position: 0 0, 20px 20px, 0 0, 0 0;
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 60px 20px;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Декоративные фоновые свечения */
+        .glow-overlay {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: var(--primary);
+            filter: blur(180px);
+            opacity: 0.12;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .glow-1 { top: 5%; left: 10%; }
+        .glow-2 { bottom: 15%; right: 10%; background: var(--secondary); }
+
+        .wrapper {
+            width: 100%;
+            max-width: 700px;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* Хедер */
+        header {
+            text-align: center;
+        }
+
+        .logo-area {
+            display: inline-block;
+            margin-bottom: 16px;
+        }
+
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 56px;
+            font-weight: 900;
+            letter-spacing: 10px;
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(0, 240, 255, 0.8), 0 0 30px rgba(0, 240, 255, 0.4);
+        }
+
+        .logo-line {
+            width: 150px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            margin: 12px auto 0;
+            box-shadow: var(--primary-glow);
+        }
+
+        /* Общие карточки */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid var(--primary-border);
+            border-radius: 28px;
+            padding: 40px 35px;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            transition: border-color 0.4s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(0, 240, 255, 0.35);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-left: 3px solid var(--primary);
+            padding-left: 14px;
+        }
+
+        /* Hero-блок */
+        .hero-section h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .hero-section p.lead {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        /* Сетка преимуществ */
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin-bottom: 35px;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 18px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            background: rgba(0, 240, 255, 0.03);
+            border-color: rgba(0, 240, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .feature-icon {
+            width: 32px;
+            height: 32px;
+            color: var(--primary);
+            filter: drop-shadow(var(--primary-glow));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .feature-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .btn-icon {
+            width: 20px;
+            height: 20px;
+            stroke-width: 1.8;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .btn:hover .btn-icon {
+            transform: scale(1.1);
+        }
+
+        .flag-svg {
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            vertical-align: middle;
+        }
+
+        .feature-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .feature-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.45;
+        }
+
+        /* Кнопки вызова действий */
+        .cta-group {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px 24px;
+            border-radius: 16px;
+            border: 1px solid transparent;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #00cca3);
+            color: #03050c;
+            box-shadow: var(--primary-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.7);
+        }
+
+        .btn-telegram {
+            background: rgba(0, 136, 204, 0.1);
+            color: #0088cc;
+            border-color: rgba(0, 136, 204, 0.2);
+        }
+
+        .btn-telegram:hover {
+            background: rgba(0, 136, 204, 0.2);
+            border-color: #0088cc;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 136, 204, 0.2);
+        }
+
+        .btn-support {
+            background: transparent;
+            color: var(--text-color);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-support:hover {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: var(--text-color);
+            transform: translateY(-2px);
+        }
+
+        /* --- Раздел Инструкции (Шаги) --- */
+        .step-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--primary);
+            background: rgba(0, 240, 255, 0.08);
+            border: 1px solid var(--primary-border);
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: var(--primary-glow);
+        }
+
+        .step-content {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .step-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .step-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* --- Раздел FAQ (ЧаВо) --- */
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .faq-question {
+            font-size: 15px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .faq-answer {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* --- Раздел Генератора Ключей --- */
+        .generator-card {
+            display: none;
+            animation: slideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .auth-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .btn-auth {
+            padding: 16px;
+            font-size: 15px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .btn-google {
+            background: white;
+            color: #0f172a;
+        }
+
+        .btn-google:hover {
+            background: #f1f5f9;
+            transform: translateY(-2px);
+        }
+
+        .btn-github {
+            background: #0f172a;
+            color: white;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-github:hover {
+            background: #1e293b;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--primary-glow);
+        }
+
+        /* Лоадер */
+        .loader-section {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 0;
+        }
+
+        .cyber-loader {
+            width: 50px;
+            height: 50px;
+            border: 2px solid transparent;
+            border-top-color: var(--primary);
+            border-bottom-color: var(--secondary);
+            border-radius: 50%;
+            animation: spin 1.2s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        .status-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            color: var(--primary);
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+
+        .status-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Вывод Ключа */
+        .result-section {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .qr-wrapper {
+            background: white;
+            padding: 10px;
+            border-radius: 16px;
+            border: 2px solid var(--primary);
+            box-shadow: var(--primary-glow);
+            margin-bottom: 24px;
+        }
+
+        .qr-code {
+            width: 180px;
+            height: 180px;
+            display: block;
+        }
+
+        .result-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            margin-bottom: 16px;
+        }
+
+        .btn-cyber-action {
+            background: linear-gradient(135deg, var(--primary), #00cca3);
+            color: #03050c;
+            font-weight: 800;
+        }
+
+        .btn-cyber-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.7);
+        }
+
+        .btn-cyber-outline {
+            background: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--primary-border);
+        }
+
+        .btn-cyber-outline:hover {
+            background: rgba(0, 240, 255, 0.05);
+            border-color: var(--primary);
+        }
+
+        .expiration-tag {
+            font-size: 11px;
+            color: var(--secondary);
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .error-message {
+            color: #ff4a4a;
+            background: rgba(255, 74, 74, 0.08);
+            border: 1px solid rgba(255, 74, 74, 0.2);
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            margin-top: 20px;
+            display: none;
+            text-align: center;
+        }
+
+        /* Анимации */
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Стили виджетов */
+        .slogan-badge {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-top: 14px;
+            text-shadow: var(--primary-glow);
+            opacity: 0.95;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .widgets-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 35px;
+            width: 100%;
+        }
+
+        .widget-card {
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid rgba(0, 240, 255, 0.08);
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .widget-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+            opacity: 0.5;
+        }
+
+        .widget-card.security-widget::before {
+            background: linear-gradient(90deg, var(--secondary), transparent);
+        }
+
+        .widget-card:hover {
+            border-color: rgba(0, 240, 255, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 240, 255, 0.05);
+        }
+
+        .widget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 8px;
+        }
+
+        .widget-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #ffffff;
+            opacity: 0.8;
+        }
+
+        .live-badge {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 9px;
+            font-weight: 800;
+            color: #00cca3;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(0, 204, 163, 0.4);
+        }
+
+        .pulse-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #00cca3;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 8px #00cca3;
+            animation: pulse-ring 1.5s infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.9); opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { transform: scale(1.1); opacity: 1; }
+        }
+
+        .node-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .node-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.01);
+            padding: 8px 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .node-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+
+        .flag {
+            font-size: 20px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .node-name-group {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .node-brand {
+            font-size: 10px;
+            font-weight: 800;
+            color: var(--primary);
+            text-shadow: var(--primary-glow);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1.1;
+            margin-bottom: 1px;
+        }
+
+        .node-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: #ffffff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .node-proto {
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        .node-metrics {
+            display: flex;
+            gap: 12px;
+        }
+
+        .metric-item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .metric-label {
+            font-size: 8px;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+
+        .metric-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Стили виджета безопасности */
+        .shield-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 9px;
+            font-weight: 800;
+        }
+
+        .shield-text {
+            letter-spacing: 1px;
+        }
+
+        .shield-text.safe {
+            color: #00cca3;
+            text-shadow: 0 0 10px rgba(0, 204, 163, 0.4);
+        }
+
+        .shield-text.danger {
+            color: #ff4a4a;
+            text-shadow: 0 0 10px rgba(255, 74, 74, 0.4);
+        }
+
+        .shield-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .shield-dot.status-safe {
+            background-color: #00cca3;
+            box-shadow: 0 0 8px #00cca3;
+        }
+
+        .shield-dot.status-danger {
+            background-color: #ff4a4a;
+            box-shadow: 0 0 8px #ff4a4a;
+        }
+
+        .security-body {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .security-shield-container {
+            width: 48px;
+            height: 48px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.015);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .shield-icon {
+            width: 32px;
+            height: 32px;
+            transition: all 0.5s ease;
+        }
+
+        .shield-icon.safe {
+            color: var(--primary);
+            filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.6));
+        }
+
+        .shield-icon.danger {
+            color: #ff4a4a;
+            filter: drop-shadow(0 0 8px rgba(255, 74, 74, 0.4));
+        }
+
+        .security-details {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .ip-row {
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .ip-label {
+            color: var(--text-muted);
+        }
+
+        .ip-value {
+            font-family: 'Orbitron', sans-serif;
+            color: #ffffff;
+            margin-left: 5px;
+        }
+
+        .status-desc {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.35;
+        }
+
+        .btn-check-sec {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 8px 12px;
+            font-size: 10.5px;
+            font-weight: 700;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-check-sec:hover {
+            background: rgba(0, 240, 255, 0.05);
+            border-color: rgba(0, 240, 255, 0.2);
+            color: var(--primary);
+        }
+
+        @media (max-width: 600px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            .widgets-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+    </style>
+    <!-- Google reCAPTCHA v3 API загружается динамически в JS -->
+</head>
+<body>
+
+    <div class="glow-overlay glow-1"></div>
+    <div class="glow-overlay glow-2"></div>
+
+    <div class="wrapper">
+        <!-- Логотип -->
+        <header>
+            <div class="logo-area">
+                <div class="logo-text">XPN</div>
+                <div class="logo-line"></div>
+                <div class="slogan-badge">Твой неоновый щит в цифровом пространстве</div>
+            </div>
+        </header>
+
+        <!-- Главная карточка Лендинга -->
+        <section class="card hero-section" id="landing-card">
+            <h1>Приватность. Скорость. Шифрование.</h1>
+            <p class="lead">XPN — это скоростная зашифрованная сеть для обхода любых ограничений. Мы используем современные технологии маскировки трафика, чтобы вы могли пользоваться интернетом свободно и анонимно.</p>
+            
+            <!-- Сетка Фич -->
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+                        </svg>
+                    </div>
+                    <div class="feature-title">VLESS + Reality</div>
+                    <div class="feature-desc">Маскирует трафик под обращение к легитимным веб-ресурсам (напр. Yahoo). Обходит DPI фильтры.</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-.778.099-1.533.284-2.253" />
+                        </svg>
+                    </div>
+                    <div class="feature-title">Обход «белых списков»</div>
+                    <div class="feature-desc">Специальные узлы VLESS/XHTTP обходят самые жесткие корпоративные и государственные блокировки.</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                        </svg>
+                    </div>
+                    <div class="feature-title">Hysteria 2</div>
+                    <div class="feature-desc">Агрессивный протокол на базе UDP для сверхстабильного сигнала при плохом Wi-Fi или слабом мобильном LTE.</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                        </svg>
+                    </div>
+                    <div class="feature-title">Бескомпромиссное Zero-Log</div>
+                    <div class="feature-desc">Бэкенд физически не хранит историю посещений. Мы защищаем ваше цифровое право на тайну переписки.</div>
+                </div>
+            </div>
+
+            <!-- Блок Виджетов -->
+            <div class="widgets-container">
+                <!-- Виджет 1: Статус Нод -->
+                <div class="widget-card">
+                    <div class="widget-header">
+                        <div class="widget-title">
+                            <svg class="btn-icon" style="width: 14px; height: 14px; margin-right: 5px; vertical-align: middle; color: var(--primary);" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                            </svg>
+                            РАБОЧИЕ УЗЛЫ СЕТИ
+                        </div>
+                        <div class="live-badge"><span class="pulse-dot"></span>LIVE</div>
+                    </div>
+                    <div class="node-list">
+                        <div class="node-row">
+                            <div class="node-info">
+                                <span class="flag">
+                                    <svg class="flag-svg" viewBox="0 0 30 20" width="20" height="13.3" style="display: inline-block; vertical-align: middle; margin-right: 6px;">
+                                        <rect width="30" height="6.67" fill="#000"/>
+                                        <rect y="6.67" width="30" height="6.67" fill="#D00"/>
+                                        <rect y="13.33" width="30" height="6.67" fill="#FFCF00"/>
+                                    </svg>
+                                </span>
+                                <div class="node-name-group">
+                                    <div class="node-brand">XPN</div>
+                                    <div class="node-name">Germany</div>
+                                    <div class="node-proto">VLESS-Reality</div>
+                                </div>
+                            </div>
+                            <div class="node-metrics">
+                                <div class="metric-item">
+                                    <span class="metric-label">ПИНГ</span>
+                                    <span class="metric-value" id="ping-de">32 ms</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-label">НАГРУЗКА</span>
+                                    <span class="metric-value" id="load-de">12%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="node-row">
+                            <div class="node-info">
+                                <span class="flag">
+                                    <svg class="flag-svg" viewBox="0 0 30 20" width="20" height="13.3" style="display: inline-block; vertical-align: middle; margin-right: 6px;">
+                                        <rect width="30" height="6.67" fill="#AE1C28"/>
+                                        <rect y="6.67" width="30" height="6.67" fill="#FFF"/>
+                                        <rect y="13.33" width="30" height="6.67" fill="#21468B"/>
+                                    </svg>
+                                </span>
+                                <div class="node-name-group">
+                                    <div class="node-brand">XPN</div>
+                                    <div class="node-name">Netherlands</div>
+                                    <div class="node-proto">Hysteria 2</div>
+                                </div>
+                            </div>
+                            <div class="node-metrics">
+                                <div class="metric-item">
+                                    <span class="metric-label">ПИНГ</span>
+                                    <span class="metric-value" id="ping-nl">41 ms</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-label">НАГРУЗКА</span>
+                                    <span class="metric-value" id="load-nl">8%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Виджет 2: Статус защиты -->
+                <div class="widget-card security-widget">
+                    <div class="widget-header">
+                        <div class="widget-title">
+                            <svg class="btn-icon" style="width: 14px; height: 14px; margin-right: 5px; vertical-align: middle; color: var(--secondary);" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+                            </svg>
+                            МОЕ ПОДКЛЮЧЕНИЕ
+                        </div>
+                        <div class="shield-indicator" id="shield-indicator">
+                            <span class="shield-text danger" id="shield-text">ОПАСНО</span>
+                            <span class="shield-dot status-danger" id="shield-dot"></span>
+                        </div>
+                    </div>
+                    <div class="security-body">
+                        <div class="security-shield-container">
+                            <svg id="shield-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="shield-icon danger">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+                            </svg>
+                        </div>
+                        <div class="security-details">
+                            <div class="ip-row">
+                                <span class="ip-label">IP:</span>
+                                <span class="ip-value" id="client-ip-display">Определение...</span>
+                            </div>
+                            <div class="status-desc" id="security-desc">Подключение не защищено. Трафик может перехватываться.</div>
+                        </div>
+                    </div>
+                    <button class="btn-check-sec" onclick="checkClientSecurity()">
+                        <svg class="btn-icon" style="width: 12px; height: 12px; margin-right: 4px; vertical-align: middle; stroke-width: 2.2;" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                        </svg>
+                        Проверить соединение
+                    </button>
+                </div>
+            </div>
+
+            <!-- Главный блок кнопок -->
+            <div class="cta-group">
+                <button class="btn btn-primary" onclick="showGenerator()">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
+                    </svg>
+                    Получить временный доступ (Тест 2 часа)
+                </button>
+                <a href="https://t.me/XPN_PRIVATE_BOT" target="_blank" class="btn btn-telegram">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                    </svg>
+                    Наш Telegram-бот (Полная подписка)
+                </a>
+            </div>
+        </section>
+
+        <!-- Карточка генератора (активируется по кнопке) -->
+        <section class="card generator-card" id="generator-card">
+            <h2 class="section-title">Тестовый доступ</h2>
+            
+            <!-- Кнопки авторизации -->
+            <div class="auth-grid" id="auth-section">
+                <p style="font-size: 13.5px; color: var(--text-muted); text-align: center; margin-bottom: 12px; line-height: 1.5;">
+                    Пожалуйста, авторизуйтесь для прохождения капчи и автоматической генерации ключа в Xray-core. Лимит: 1 ключ в 24 часа.
+                </p>
+                <button class="btn btn-google btn-auth" onclick="startOAuth('google')">
+                    <svg width="18" height="18" viewBox="0 0 24 24" style="margin-right: 8px;">
+                        <path fill="#EA4335" d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.13-5.136 4.13A5.72 5.72 0 0 1 8.24 12.8a5.72 5.72 0 0 1 5.75-5.73 5.56 5.56 0 0 1 3.86 1.54l3.07-3.07A9.72 9.72 0 0 0 13.99 2 9.94 9.94 0 0 0 4 11.96a9.94 9.94 0 0 0 9.99 9.96c5.8 0 9.97-4.08 9.97-10.12 0-.61-.06-1.12-.17-1.52H12.24z"/>
+                    </svg>
+                    Авторизоваться через Google
+                </button>
+                <button class="btn btn-github btn-auth" onclick="startOAuth('github')">
+                    <svg width="18" height="18" fill="#FFF" viewBox="0 0 24 24" style="margin-right: 8px;">
+                        <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/>
+                    </svg>
+                    Авторизоваться через GitHub
+                </button>
+            </div>
+
+            <!-- Лоадер -->
+            <div class="loader-section" id="loader-section">
+                <div class="cyber-loader"></div>
+                <div class="status-text" id="status-title">Инициализация...</div>
+                <div class="status-sub" id="status-sub">Подготовка защищенного шлюза</div>
+            </div>
+
+            <!-- Результат -->
+            <div class="result-section" id="result-section">
+                <div class="qr-wrapper">
+                    <div id="qr-container"></div>
+                </div>
+                
+                <div class="result-actions">
+                    <button class="btn btn-primary btn-cyber-action" id="btn-import">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                        </svg>
+                        Импортировать в HAPP
+                    </button>
+                    <button class="btn btn-support btn-cyber-outline" id="btn-copy">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 7.5V6.108c0-1.135.845-2.098 1.976-2.192.373-.03.748-.057 1.123-.08M15.75 18H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08M15.75 18.75v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5A3.375 3.375 0 006.375 7.5H5.25m11.9-3.664A2.251 2.251 0 0015 2.25h-1.5a2.251 2.251 0 00-2.15 1.586m5.8 0c.065.21.1.433.1.664v.75h-6V4.5c0-.231.035-.454.1-.664M6.75 7.5H4.875c-.621 0-1.125.504-1.125 1.125v12c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V16.5a9 9 0 00-9-9z" />
+                        </svg>
+                        Скопировать VLESS ссылку
+                    </button>
+                </div>
+                
+                <div class="expiration-tag" style="display: flex; align-items: center; justify-content: center; gap: 6px;">
+                    <svg style="width: 14px; height: 14px; color: var(--secondary); fill: none; stroke: currentColor; stroke-width: 2;" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Доступ закроется через 2 часа
+                </div>
+            </div>
+
+            <!-- Вывод ошибок -->
+            <div class="error-message" id="error-box"></div>
+        </section>
+
+        <!-- Раздел Как начать пользоваться (Инструкция) -->
+        <section class="card">
+            <h2 class="section-title">Быстрый Старт</h2>
+            <div class="step-list">
+                <div class="step-item">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <div class="step-title">Установите приложение HAPP</div>
+                        <div class="step-desc">Скачайте и установите HAPP (Hiddify) для вашей платформы: Android, iOS (iPhone/iPad), Windows или macOS. Это бесплатный сторонний клиент с открытым исходным кодом.</div>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <div class="step-title">Получите ключ доступа</div>
+                        <div class="step-desc">Нажмите кнопку «Получить временный доступ» выше и пройдите OAuth верификацию. Система мгновенно создаст учетную запись на сервере и выдаст персональную ссылку VLESS.</div>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <div class="step-title">Импортируйте ключ в HAPP</div>
+                        <div class="step-desc">Нажмите кнопку быстрого импорта на сайте или отсканируйте сгенерированный QR-код внутри приложения HAPP для добавления конфигурации.</div>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">04</div>
+                    <div class="step-content">
+                        <div class="step-title">Активируйте VPN</div>
+                        <div class="step-desc">Нажмите на круглую кнопку подключения в центре экрана приложения HAPP. Весь ваш сетевой трафик теперь зашифрован.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Раздел FAQ (Частые Вопросы) -->
+        <section class="card">
+            <h2 class="section-title">Вопросы и Ответы</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">Что такое «белые списки» и как XPN их обходит?</div>
+                    <div class="faq-answer">При жесткой чебурнетизации провайдеры могут блокировать все внешние IP-адреса, оставляя доступ только к избранным сайтам («белым спискам»). XPN использует экспериментальный протокол VLESS/XHTTP поверх TLS, маскируясь под разрешенный трафик, чтобы пробивать даже такие глушилки.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Зачем нужна авторизация через Google/GitHub?</div>
+                    <div class="faq-answer">Временные бесплатные ключи часто становятся целью ботоводов, которые парсят и забивают каналы трафиком. Вход через крупные платформы доказывает, что вы реальный человек, и не позволяет ботам регистрировать тысячи аккаунтов.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Как получить постоянный доступ без лимита в 2 часа?</div>
+                    <div class="faq-answer">Для этого перейдите в нашего официального Telegram-бота. В нем вы сможете пополнять баланс (карты, СБП, крипта) и оформлять полноценную подписку без лимитов времени и трафика.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Что делать, если Telegram полностью заблокирован?</div>
+                    <div class="faq-answer">Именно для этого создан этот сайт! Получите временный ключ здесь, импортируйте в HAPP и включите VPN. После этого у вас откроется Telegram, и вы сможете беспрепятственно зайти в бота для продления.</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // --- Конфигурация клиента ---
+        const RECAPTCHA_SITE_KEY = "YOUR_RECAPTCHA_SITE_KEY"; 
+        const BACKEND_URL = "http://127.0.0.1:8000"; 
+
+        // OAuth Client IDs
+        const GOOGLE_CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID";
+        const GITHUB_CLIENT_ID = "YOUR_GITHUB_CLIENT_ID";
+
+        function showGenerator() {
+            document.getElementById('generator-card').style.display = 'block';
+            document.getElementById('generator-card').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Логика OAuth Редиректа ---
+        function startOAuth(provider) {
+            const redirectUri = window.location.origin + window.location.pathname;
+            let authUrl = "";
+            
+            if (provider === "google") {
+                authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=openid%20profile&state=google`;
+            } else if (provider === "github") {
+                authUrl = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=read:user&state=github`;
+            }
+            
+            window.location.href = authUrl;
+        }
+
+        // --- Inline Web Worker для Proof-of-Work ---
+        const workerCode = `
+            self.onmessage = async function(e) {
+                const { salt, difficulty } = e.data;
+                const prefix = '0'.repeat(difficulty);
+                let nonce = 0;
+                
+                while (true) {
+                    const text = salt + nonce;
+                    const msgUint8 = new TextEncoder().encode(text);
+                    const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
+                    const hashArray = Array.from(new Uint8Array(hashBuffer));
+                    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                    
+                    if (hashHex.startsWith(prefix)) {
+                        self.postMessage({ nonce: nonce.toString(), hash: hashHex });
+                        break;
+                    }
+                    nonce++;
+                }
+            };
+        `;
+
+        const workerBlob = new Blob([workerCode], { type: 'application/javascript' });
+        const workerUrl = URL.createObjectURL(workerBlob);
+
+        function solvePoWAsync(salt, difficulty) {
+            return new Promise((resolve) => {
+                const worker = new Worker(workerUrl);
+                worker.postMessage({ salt, difficulty });
+                worker.onmessage = function(e) {
+                    worker.terminate();
+                    resolve(e.data);
+                };
+            });
+        }
+
+        // --- Динамическая загрузка reCAPTCHA ---
+        function loadReCaptcha() {
+            if (RECAPTCHA_SITE_KEY && RECAPTCHA_SITE_KEY !== "YOUR_RECAPTCHA_SITE_KEY") {
+                const script = document.createElement('script');
+                script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
+                script.async = true;
+                script.defer = true;
+                document.head.appendChild(script);
+            }
+        }
+
+        // --- Логика обработки callback ---
+        window.addEventListener('DOMContentLoaded', async () => {
+            loadReCaptcha();
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');
+            const state = urlParams.get('state');
+
+            if (code && state) {
+                window.history.replaceState({}, document.title, window.location.pathname);
+                
+                showGenerator();
+                document.getElementById('auth-section').style.display = 'none';
+                document.getElementById('loader-section').style.display = 'flex';
+                
+                try {
+                    // Шаг 1. Получаем challenge (соль) от бэкенда
+                    updateStatus("Подключение к шлюзу...", "Получение соли");
+                    const challengeRes = await fetch(`${BACKEND_URL}/api/challenge`);
+                    if (!challengeRes.ok) throw new Error("Не удалось подключиться к бэкенду");
+                    const { salt, difficulty } = await challengeRes.json();
+
+                    // Шаг 2. Вычисляем Proof-of-Work
+                    updateStatus("Решение криптозадачи...", "Пожалуйста, подождите");
+                    const powSolution = await solvePoWAsync(salt, difficulty);
+
+                    // Шаг 3. Получаем токен Google reCAPTCHA v3
+                    updateStatus("Проверка безопасности...", "Валидация reCAPTCHA");
+                    let recaptchaToken = "test_token";
+                    if (typeof grecaptcha !== 'undefined' && RECAPTCHA_SITE_KEY !== "YOUR_RECAPTCHA_SITE_KEY") {
+                        recaptchaToken = await new Promise((resolve) => {
+                            grecaptcha.ready(() => {
+                                grecaptcha.execute(RECAPTCHA_SITE_KEY, {action: 'get_key'})
+                                    .then(resolve)
+                                    .catch(() => resolve("error_token"));
+                            });
+                        });
+                    }
+
+                    // Шаг 4. Делаем запрос ключа
+                    updateStatus("Генерация VLESS ключа...", "Добавление в Xray-core");
+                    const keyRes = await fetch(`${BACKEND_URL}/api/get-key`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            recaptcha_token: recaptchaToken,
+                            pow_nonce: powSolution.nonce,
+                            pow_salt: salt,
+                            oauth_provider: state,
+                            oauth_code: code
+                        })
+                    });
+
+                    const result = await keyRes.json();
+                    if (!keyRes.ok) {
+                        throw new Error(result.detail || "Не удалось выдать временный ключ");
+                    }
+
+                    showResult(result.vless_link, result.happ_link);
+                    
+                } catch (err) {
+                    showError(err.message);
+                }
+            }
+        });
+
+        function updateStatus(title, sub) {
+            document.getElementById('status-title').textContent = title;
+            document.getElementById('status-sub').textContent = sub;
+        }
+
+        function showResult(vlessLink, happLink) {
+            document.getElementById('loader-section').style.display = 'none';
+            document.getElementById('result-section').style.display = 'flex';
+            
+            // Если есть зашифрованная ссылка happ://, кодируем ее в QR-код, иначе оригинальную VLESS
+            const qrData = happLink || vlessLink;
+            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrData)}`;
+            document.getElementById('qr-container').innerHTML = `<img class="qr-code" src="${qrUrl}" alt="QR Code">`;
+            
+            document.getElementById('btn-copy').onclick = () => {
+                navigator.clipboard.writeText(vlessLink);
+                alert("VLESS ссылка успешно скопирована!");
+            };
+            
+            document.getElementById('btn-import').onclick = () => {
+                // Импортируем напрямую зашифрованную Happ Crypt5 подписку
+                window.location.href = happLink || vlessLink.replace('vless://', 'hiddify://import/');
+            };
+        }
+
+        function showError(message) {
+            document.getElementById('loader-section').style.display = 'none';
+            document.getElementById('auth-section').style.display = 'flex';
+            
+            const errorBox = document.getElementById('error-box');
+            errorBox.textContent = `Ошибка доступа: ${message}`;
+            errorBox.style.display = 'block';
+        }
+
+        // --- Логика виджетов ---
+        function simulateMetrics() {
+            setInterval(() => {
+                const dePing = Math.floor(Math.random() * (35 - 28 + 1)) + 28;
+                const deLoad = Math.floor(Math.random() * (16 - 11 + 1)) + 11;
+                const nlPing = Math.floor(Math.random() * (44 - 38 + 1)) + 38;
+                const nlLoad = Math.floor(Math.random() * (11 - 6 + 1)) + 6;
+
+                const pingDeEl = document.getElementById('ping-de');
+                const loadDeEl = document.getElementById('load-de');
+                const pingNlEl = document.getElementById('ping-nl');
+                const loadNlEl = document.getElementById('load-nl');
+
+                if (pingDeEl) pingDeEl.textContent = `${dePing} ms`;
+                if (loadDeEl) loadDeEl.textContent = `${deLoad}%`;
+                if (pingNlEl) pingNlEl.textContent = `${nlPing} ms`;
+                if (loadNlEl) loadNlEl.textContent = `${nlLoad}%`;
+            }, 3500);
+        }
+
+        async function checkClientSecurity() {
+            const ipDisplay = document.getElementById('client-ip-display');
+            const shieldText = document.getElementById('shield-text');
+            const shieldDot = document.getElementById('shield-dot');
+            const shieldSvg = document.getElementById('shield-svg');
+            const securityDesc = document.getElementById('security-desc');
+
+            if (ipDisplay) ipDisplay.textContent = "Проверка...";
+
+            try {
+                const res = await fetch(`${BACKEND_URL}/api/status`);
+                if (!res.ok) throw new Error("Сервер недоступен");
+                
+                const data = await res.json();
+                const serverIp = data.server_address;
+                const clientIp = data.client_ip;
+
+                if (ipDisplay) ipDisplay.textContent = clientIp;
+
+                // Проверяем, идет ли трафик через VPN (IP клиента равен IP сервера)
+                const isSecured = (clientIp === serverIp) || 
+                                  (clientIp === "127.0.0.1" && serverIp === "127.0.0.1");
+
+                if (isSecured) {
+                    if (shieldText) {
+                        shieldText.textContent = "ЗАЩИЩЕН";
+                        shieldText.className = "shield-text safe";
+                    }
+                    if (shieldDot) {
+                        shieldDot.className = "shield-dot status-safe";
+                    }
+                    if (shieldSvg) {
+                        shieldSvg.className = "shield-icon safe";
+                    }
+                    if (securityDesc) {
+                        securityDesc.textContent = "Трафик надежно зашифрован через VLESS-Reality. Ваша приватность под защитой.";
+                    }
+                } else {
+                    if (shieldText) {
+                        shieldText.textContent = "ОПАСНО";
+                        shieldText.className = "shield-text danger";
+                    }
+                    if (shieldDot) {
+                        shieldDot.className = "shield-dot status-danger";
+                    }
+                    if (shieldSvg) {
+                        shieldSvg.className = "shield-icon danger";
+                    }
+                    if (securityDesc) {
+                        securityDesc.textContent = "Подключение не защищено. Ваш трафик может быть перехвачен провайдером.";
+                    }
+                }
+            } catch (err) {
+                if (ipDisplay) ipDisplay.textContent = "Не удалось определить";
+                if (securityDesc) securityDesc.textContent = "Не удалось подключиться к серверу проверки статуса.";
+            }
+        }
+
+        // Запуск симуляции метрик и проверки безопасности при загрузке
+        window.addEventListener('DOMContentLoaded', () => {
+            simulateMetrics();
+            checkClientSecurity();
+        });
+    </script>
+</body>
+</html>
