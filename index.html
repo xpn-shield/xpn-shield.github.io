@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XPN — Приватный VPN Нового Поколения</title>
+    <title>XPN — Приватная Сеть Нового Поколения</title>
     <!-- Шрифты Orbitron и Outfit -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -1114,7 +1114,7 @@
                 <div class="step-item">
                     <div class="step-number">04</div>
                     <div class="step-content">
-                        <div class="step-title">Активируйте VPN</div>
+                        <div class="step-title">Активируйте соединение</div>
                         <div class="step-desc">Нажмите на круглую кнопку подключения в центре экрана приложения HAPP. Весь ваш сетевой трафик теперь зашифрован.</div>
                     </div>
                 </div>
@@ -1139,7 +1139,7 @@
                 </div>
                 <div class="faq-item">
                     <div class="faq-question">Что делать, если Telegram полностью заблокирован?</div>
-                    <div class="faq-answer">Именно для этого создан этот сайт! Получите временный ключ здесь, импортируйте в HAPP и включите VPN. После этого у вас откроется Telegram, и вы сможете беспрепятственно зайти в бота для продления.</div>
+                    <div class="faq-answer">Именно для этого создан этот сайт! Получите временный ключ здесь, импортируйте в HAPP и включите соединение. После этого у вас откроется Telegram, и вы сможете беспрепятственно зайти в бота для продления.</div>
                 </div>
             </div>
         </section>
@@ -1369,7 +1369,7 @@
 
                 if (ipDisplay) ipDisplay.textContent = clientIp;
 
-                // Проверяем, идет ли трафик через VPN (IP клиента равен IP сервера)
+                // Проверяем, идет ли трафик через защищенное соединение (IP клиента равен IP сервера)
                 const isSecured = (clientIp === serverIp) || 
                                   (clientIp === "127.0.0.1" && serverIp === "127.0.0.1");
 
