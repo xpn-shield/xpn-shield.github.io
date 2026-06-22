@@ -998,6 +998,18 @@
             100% { box-shadow: 0 0 25px rgba(0, 240, 255, 0.8), 0 0 10px rgba(157, 0, 255, 0.4); }
         }
 
+        .btn-secondary-solid {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+        }
+
+        .btn-secondary-solid:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
         /* Подсказки под кнопками платформ */
         .platform-tips {
             margin-top: 12px;
@@ -1272,7 +1284,7 @@
                             <span>Требуется Google-вход</span>
                         </div>
                     </div>
-                    <button class="btn btn-primary" onclick="showGenerator()">
+                    <button class="btn btn-secondary-solid" onclick="showGenerator()">
                         <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
                         </svg>
