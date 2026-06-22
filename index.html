@@ -4,6 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XPN — Приватная Сеть Нового Поколения</title>
+    
+    <!-- SEO & Open Graph (Социальные сети и поиск) -->
+    <meta name="description" content="XPN — скоростная зашифрованная сеть нового поколения для обхода любых ограничений. Безопасность, анонимность и стабильность.">
+    <meta property="og:title" content="XPN — Приватная Сеть Нового Поколения">
+    <meta property="og:description" content="Скоростная зашифрованная сеть для обхода ограничений. Получите 3 дня бесплатного доступа в Telegram-боте.">
+    <meta property="og:image" content="https://xpn-shield.github.io/image.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://xpn-shield.github.io/">
+    
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="XPN — Приватная Сеть Нового Поколения">
+    <meta name="twitter:description" content="Скоростная зашифрованная сеть для обхода ограничений. Получите 3 дня бесплатного доступа в Telegram-боте.">
+    <meta name="twitter:image" content="https://xpn-shield.github.io/image.png">
+
+    <!-- Поддержка старых поисковых роботов -->
+    <link rel="image_src" href="https://xpn-shield.github.io/image.png">
+
+    <!-- Микроразметка Schema.org (JSON-LD) для Google / Яндекс -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "XPN",
+      "url": "https://xpn-shield.github.io/",
+      "image": "https://xpn-shield.github.io/image.png",
+      "description": "XPN — скоростная зашифрованная сеть нового поколения для обхода любых ограничений."
+    }
+    </script>
+
     <!-- Шрифты Orbitron и Outfit -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -156,6 +189,30 @@
             text-transform: uppercase;
             border-left: 3px solid var(--primary);
             padding-left: 14px;
+        }
+
+        /* Hero Image styled for premium feel */
+        .hero-image-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 28px;
+            width: 100%;
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 220px;
+            height: auto;
+            border-radius: 20px;
+            border: 2px solid rgba(0, 240, 255, 0.25);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.2);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hero-image:hover {
+            transform: scale(1.05);
+            border-color: rgba(0, 240, 255, 0.55);
+            box-shadow: 0 0 35px rgba(0, 240, 255, 0.35), 0 0 15px rgba(157, 0, 255, 0.15);
         }
 
         /* Hero-блок */
@@ -1145,6 +1202,9 @@
 
         <!-- Главная карточка Лендинга -->
         <section class="card hero-section" id="landing-card">
+            <div class="hero-image-container">
+                <img src="image.png" alt="XPN — Приватная Сеть Нового Поколения" class="hero-image" loading="eager" decoding="async">
+            </div>
             <h1>Приватность. Скорость. Шифрование.</h1>
             <p class="lead">XPN — это скоростная зашифрованная сеть для обхода любых ограничений. Мы используем современные технологии маскировки трафика, чтобы вы могли пользоваться интернетом свободно и анонимно.</p>
             
