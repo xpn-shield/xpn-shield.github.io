@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://xpn-shield.github.io/sitemap.xml
