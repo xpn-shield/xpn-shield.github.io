@@ -883,6 +883,147 @@
             letter-spacing: 0.5px;
         }
 
+        /* Новые стили для сравнения способов подключения */
+        .flow-comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+            width: 100%;
+        }
+
+        .flow-card {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .flow-card.primary-flow {
+            background: linear-gradient(145deg, rgba(157, 0, 255, 0.08), rgba(0, 240, 255, 0.04));
+            border: 1.5px solid rgba(0, 240, 255, 0.25);
+            box-shadow: 0 10px 30px rgba(0, 240, 255, 0.05);
+        }
+
+        .flow-card.primary-flow:hover {
+            border-color: rgba(0, 240, 255, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(0, 240, 255, 0.1);
+        }
+
+        .flow-card.secondary-flow:hover {
+            border-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .flow-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 8px;
+            font-weight: 800;
+            padding: 4px 8px;
+            border-radius: 6px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .flow-badge.primary-badge {
+            background: var(--primary);
+            color: #03050c;
+            box-shadow: var(--primary-glow);
+        }
+
+        .flow-badge.secondary-badge {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-color);
+        }
+
+        .flow-header {
+            margin-bottom: 18px;
+        }
+
+        .flow-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .flow-subtitle {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .flow-bullets {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .flow-bullet {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12.5px;
+            color: var(--text-color);
+        }
+
+        .flow-bullet-icon {
+            width: 16px;
+            height: 16px;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .flow-card.secondary-flow .flow-bullet-icon {
+            color: var(--text-muted);
+        }
+
+        /* Анимация пульсации для кнопки Telegram */
+        .pulse-btn {
+            animation: button-pulse 2s infinite alternate;
+        }
+
+        @keyframes button-pulse {
+            0% { box-shadow: 0 0 15px rgba(0, 240, 255, 0.4); }
+            100% { box-shadow: 0 0 25px rgba(0, 240, 255, 0.8), 0 0 10px rgba(157, 0, 255, 0.4); }
+        }
+
+        /* Подсказки под кнопками платформ */
+        .platform-tips {
+            margin-top: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .platform-tip {
+            font-size: 11.5px;
+            color: var(--text-muted);
+            line-height: 1.45;
+            padding-left: 12px;
+            border-left: 2px solid rgba(0, 240, 255, 0.15);
+        }
+
+        .platform-tip strong {
+            color: var(--text-color);
+        }
+
+        @media (max-width: 580px) {
+            .flow-comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (max-width: 500px) {
             .download-grid {
                 grid-template-columns: 1fr;
@@ -1067,25 +1208,86 @@
                 </div>
             </div>
 
-            <!-- Главный блок кнопок -->
-            <div class="cta-group">
-                <button class="btn btn-primary" onclick="showGenerator()">
-                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
+            <!-- Новая сетка сравнения способов подключения -->
+            <div class="flow-comparison-grid">
+                <!-- Вариант 1 (Основной): Telegram Bot -->
+                <div class="flow-card primary-flow">
+                    <span class="flow-badge primary-badge">Подарок</span>
+                    <div class="flow-header">
+                        <div class="flow-title">Telegram Бот</div>
+                        <div class="flow-subtitle">Быстрое подключение в 1 клик</div>
+                    </div>
+                    <div class="flow-bullets">
+                        <div class="flow-bullet">
+                            <svg class="flow-bullet-icon" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4.13-5.69z" clip-rule="evenodd" />
+                            </svg>
+                            <span><strong>3 ДНЯ бесплатно</strong> при запуске</span>
+                        </div>
+                        <div class="flow-bullet">
+                            <svg class="flow-bullet-icon" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4.13-5.69z" clip-rule="evenodd" />
+                            </svg>
+                            <span><strong>Без ограничений</strong> по трафику</span>
+                        </div>
+                        <div class="flow-bullet">
+                            <svg class="flow-bullet-icon" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4.13-5.69z" clip-rule="evenodd" />
+                            </svg>
+                            <span>Hysteria 2 + VLESS протоколы</span>
+                        </div>
+                    </div>
+                    <a href="https://t.me/XPN_PRIVATE_BOT" target="_blank" class="btn btn-primary pulse-btn">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                        </svg>
+                        Запустить Бота (3 дня)
+                    </a>
+                </div>
+
+                <!-- Вариант 2 (Резервный): Web-генератор -->
+                <div class="flow-card secondary-flow">
+                    <span class="flow-badge secondary-badge">Резерв</span>
+                    <div class="flow-header">
+                        <div class="flow-title">Аварийный Тест</div>
+                        <div class="flow-subtitle">Если Telegram заблокирован</div>
+                    </div>
+                    <div class="flow-bullets">
+                        <div class="flow-bullet">
+                            <svg class="flow-bullet-icon" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4.13-5.69z" clip-rule="evenodd" />
+                            </svg>
+                            <span>Тест на <strong>2 часа</strong></span>
+                        </div>
+                        <div class="flow-bullet">
+                            <svg class="flow-bullet-icon" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4.13-5.69z" clip-rule="evenodd" />
+                            </svg>
+                            <span>Лимит трафика: <strong>500 МБ</strong></span>
+                        </div>
+                        <div class="flow-bullet">
+                            <svg class="flow-bullet-icon" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4.13-5.69z" clip-rule="evenodd" />
+                            </svg>
+                            <span>Требуется Google-вход</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-cyber-outline" onclick="showGenerator()">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
+                        </svg>
+                        Получить тест на 2 часа
+                    </button>
+                </div>
+            </div>
+
+            <!-- Дополнительная ссылка на инфо-канал -->
+            <div style="text-align: center; margin-top: 18px;">
+                <a href="https://t.me/XPNXPNXPN" target="_blank" style="font-size: 13px; color: var(--text-muted); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: color 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-muted)'">
+                    <svg style="width: 14px; height: 14px; fill: none; stroke: currentColor;" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                     </svg>
-                    Получить временный доступ (Тест 2 часа)
-                </button>
-                <a href="https://t.me/XPN_PRIVATE_BOT" target="_blank" class="btn btn-telegram">
-                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
-                    </svg>
-                    Наш Telegram-бот (Полная подписка)
-                </a>
-                <a href="https://t.me/XPNXPNXPN" target="_blank" class="btn btn-support">
-                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
-                    </svg>
-                    Наш Telegram-канал
+                    Наш официальный Telegram-канал новостей
                 </a>
             </div>
         </section>
@@ -1097,7 +1299,7 @@
             <!-- Кнопки авторизации -->
             <div class="auth-grid" id="auth-section">
                 <p style="font-size: 13.5px; color: var(--text-muted); text-align: center; margin-bottom: 12px; line-height: 1.5;">
-                    Пожалуйста, авторизуйтесь для прохождения капчи и автоматической генерации ключа в Xray-core. Лимит: 1 ключ в 24 часа.
+                    Пожалуйста, авторизуйтесь для прохождения капчи и автоматической генерации ключа в Xray-core. Лимит: 1 ключ в 24 часа (трафик ограничен до 500 МБ).
                 </p>
                 <button class="btn btn-google btn-auth" onclick="startOAuth('google')">
                     <svg width="18" height="18" viewBox="0 0 24 24" style="margin-right: 8px;">
@@ -1178,27 +1380,38 @@
                                 </div>
                             </a>
                         </div>
+                        <div class="platform-tips">
+                            <div class="platform-tip">
+                                🍏 <strong>iOS / macOS:</strong> Рекомендуем версию <strong>Plus</strong>. Если вы в РФ и не можете найти приложение, воспользуйтесь первой кнопкой. Для зарубежных аккаунтов используйте версию US.
+                            </div>
+                            <div class="platform-tip">
+                                🤖 <strong>Android:</strong> Установите из Google Play. В приложении встроен русский интерфейс и автоматическая настройка.
+                            </div>
+                            <div class="platform-tip">
+                                💻 <strong>Windows:</strong> Скачайте установщик `.exe`. Если Windows SmartScreen заблокирует запуск, нажмите <em>«Подробнее»</em> -> <em>«Выполнить в любом случае»</em> (это ложное срабатывание из-за отсутствия дорогой цифровой подписи разработчика).
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="step-item">
                     <div class="step-number">02</div>
                     <div class="step-content">
-                        <div class="step-title">Получите подписку доступа</div>
-                        <div class="step-desc">Нажмите кнопку «Получить временный доступ» выше и пройдите OAuth верификацию. Система мгновенно создаст защищенную подписку на сервере.</div>
+                        <div class="step-title">Получите подписку доступа (ключ)</div>
+                        <div class="step-desc">Перейдите в наш <strong>Telegram-бот</strong> по кнопке выше для получения <strong>3 дней бесплатного доступа</strong> без лимита трафика. Если Telegram полностью заблокирован в вашей сети, нажмите кнопку аварийного теста на 2 часа для обхода блокировки.</div>
                     </div>
                 </div>
                 <div class="step-item">
                     <div class="step-number">03</div>
                     <div class="step-content">
                         <div class="step-title">Импортируйте подписку в HAPP</div>
-                        <div class="step-desc">Нажмите кнопку «Импортировать в HAPP» на сайте, чтобы автоматически добавить конфигурацию подписки в приложение HAPP.</div>
+                        <div class="step-desc">Бот или сайт выдаст вам специальную ссылку-ключ. Скопируйте её, откройте установленное приложение HAPP, нажмите <strong>«Добавить профиль»</strong> (или иконку <strong>`+`</strong>) и вставьте ссылку. Также вы можете просто нажать кнопку <em>«Импортировать в HAPP»</em> для автоматического добавления.</div>
                     </div>
                 </div>
                 <div class="step-item">
                     <div class="step-number">04</div>
                     <div class="step-content">
                         <div class="step-title">Активируйте соединение</div>
-                        <div class="step-desc">Нажмите на круглую кнопку подключения в центре экрана приложения HAPP. Весь ваш сетевой трафик теперь зашифрован.</div>
+                        <div class="step-desc">Нажмите на круглую кнопку подключения в центре экрана HAPP. Весь ваш трафик теперь зашифрован, и вы можете заходить на любые заблокированные ресурсы и в Telegram!</div>
                     </div>
                 </div>
             </div>
