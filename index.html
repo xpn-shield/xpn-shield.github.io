@@ -1448,6 +1448,9 @@
 
             <!-- Результат -->
             <div class="result-section" id="result-section">
+                <div class="qr-wrapper">
+                    <div id="qr-container"></div>
+                </div>
                 <div class="result-actions">
                     <button class="btn btn-primary btn-cyber-action" id="btn-import">
                         <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -1586,6 +1589,7 @@
         </section>
     </div>
 
+    <script src="qrcode.min.js"></script>
     <script>
         // --- Конфигурация клиента ---
         const RECAPTCHA_SITE_KEY = "6LfIRy4tAAAAAHVZgT2ZmDP8Za6unm0Y26tK589Y"; 
@@ -1736,9 +1740,23 @@
             document.getElementById('loader-section').style.display = 'none';
             document.getElementById('result-section').style.display = 'flex';
             
+            // Очищаем предыдущий QR-код и генерируем новый с чистым vlessLink
+            const qrContainer = document.getElementById('qr-container');
+            if (qrContainer) {
+                qrContainer.innerHTML = '';
+                new QRCode(qrContainer, {
+                    text: vlessLink,
+                    width: 180,
+                    height: 180,
+                    colorDark : "#03050c",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.M
+                });
+            }
+            
             document.getElementById('btn-import').onclick = () => {
-                // Импортируем напрямую зашифрованную Happ Crypt5 подписку
-                window.location.href = happLink || vlessLink.replace('vless://', 'hiddify://import/');
+                // Импортируем стандартную универсальную VLESS ссылку
+                window.location.href = vlessLink;
             };
             
             const btnCopy = document.getElementById('btn-copy-key');
