@@ -1721,6 +1721,7 @@
 
                     // Шаг 4. Делаем запрос подписки
                     updateStatus("Генерация VLESS подписки...", "Добавление в Xray-core");
+                    const redirectUri = window.location.origin + window.location.pathname;
                     const keyRes = await fetch(`${BACKEND_URL}/api/get-key`, {
                         method: 'POST',
                         headers: {
@@ -1731,7 +1732,8 @@
                             pow_nonce: powSolution.nonce,
                             pow_salt: salt,
                             oauth_provider: provider,
-                            oauth_code: code
+                            oauth_code: code,
+                            redirect_uri: redirectUri
                         })
                     });
 
