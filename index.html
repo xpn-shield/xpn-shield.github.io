@@ -10,6 +10,11 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="apple-touch-icon" href="favicon.png">
     
+    <!-- Улучшения для мобильных браузеров & SEO -->
+    <meta name="theme-color" content="#03050c">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="canonical" href="https://xpn-shield.github.io/">
+    
     <!-- SEO & Open Graph (Социальные сети и поиск) -->
     <meta name="description" content="XPN — скоростная зашифрованная сеть нового поколения для обхода любых ограничений. Безопасность, анонимность и стабильность.">
     <meta property="og:title" content="XPN — Приватная Сеть Нового Поколения">
@@ -1450,6 +1455,12 @@
                         </svg>
                         Импортировать в HAPP
                     </button>
+                    <button class="btn btn-cyber-outline" id="btn-copy-key">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H5.25m11.9-3.664A2.251 2.251 0 0015 2.25h-3a1.125 1.125 0 00-1.125 1.125v1.5a1.125 1.125 0 001.125 1.125h3a2.25 2.25 0 002.4-2.235z" />
+                        </svg>
+                        Копировать ссылку-ключ
+                    </button>
                 </div>
                 
                 <div class="expiration-tag" style="display: flex; align-items: center; justify-content: center; gap: 6px;">
@@ -1729,6 +1740,32 @@
                 // Импортируем напрямую зашифрованную Happ Crypt5 подписку
                 window.location.href = happLink || vlessLink.replace('vless://', 'hiddify://import/');
             };
+            
+            const btnCopy = document.getElementById('btn-copy-key');
+            if (btnCopy) {
+                btnCopy.onclick = async () => {
+                    const textToCopy = vlessLink;
+                    try {
+                        await navigator.clipboard.writeText(textToCopy);
+                        const originalHtml = btnCopy.innerHTML;
+                        btnCopy.innerHTML = `
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="#00cca3" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                            </svg>
+                            Скопировано!
+                        `;
+                        btnCopy.style.borderColor = '#00cca3';
+                        btnCopy.style.color = '#00cca3';
+                        setTimeout(() => {
+                            btnCopy.innerHTML = originalHtml;
+                            btnCopy.style.borderColor = '';
+                            btnCopy.style.color = '';
+                        }, 2000);
+                    } catch (err) {
+                        alert("Не удалось скопировать. Скопируйте ссылку вручную.");
+                    }
+                };
+            }
         }
 
         function showError(message) {
