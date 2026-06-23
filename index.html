@@ -1453,13 +1453,13 @@
                 </div>
                 <div class="result-actions">
                     <button class="btn btn-primary btn-cyber-action" id="btn-import">
-                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
                         </svg>
                         Импортировать в HAPP
                     </button>
                     <button class="btn btn-cyber-outline" id="btn-copy-key">
-                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H5.25m11.9-3.664A2.251 2.251 0 0015 2.25h-3a1.125 1.125 0 00-1.125 1.125v1.5a1.125 1.125 0 001.125 1.125h3a2.25 2.25 0 002.4-2.235z" />
                         </svg>
                         Копировать ссылку-подписку
@@ -1759,6 +1759,11 @@
             document.getElementById('btn-import').onclick = () => {
                 // Импортируем подписку в HAPP (через happLink) или в Hiddify
                 window.location.href = happLink || subUrl.replace('https://', 'hiddify://import/');
+                
+                // Перенаправляем в Telegram-канал через 1.5 секунды
+                setTimeout(() => {
+                    window.open('https://t.me/XPNXPNXPN', '_blank');
+                }, 1500);
             };
             
             const btnCopy = document.getElementById('btn-copy-key');
@@ -1776,6 +1781,12 @@
                         `;
                         btnCopy.style.borderColor = '#00cca3';
                         btnCopy.style.color = '#00cca3';
+                        
+                        // Перенаправляем в Telegram-канал через 1.5 секунды
+                        setTimeout(() => {
+                            window.open('https://t.me/XPNXPNXPN', '_blank');
+                        }, 1500);
+
                         setTimeout(() => {
                             btnCopy.innerHTML = originalHtml;
                             btnCopy.style.borderColor = '';
