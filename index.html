@@ -1723,7 +1723,7 @@
                         throw new Error(result.detail || "Не удалось выдать временную подписку");
                     }
 
-                    showResult(result.vless_link, result.happ_link);
+                    showResult(result.vless_link, result.happ_link, result.uuid);
                     
                 } catch (err) {
                     showError(err.message);
@@ -1736,16 +1736,18 @@
             document.getElementById('status-sub').textContent = sub;
         }
 
-        function showResult(vlessLink, happLink) {
+        function showResult(vlessLink, happLink, uuid) {
             document.getElementById('loader-section').style.display = 'none';
             document.getElementById('result-section').style.display = 'flex';
             
-            // Очищаем предыдущий QR-код и генерируем новый с чистым vlessLink
+            const subUrl = `${BACKEND_URL}/api/sub/${uuid}`;
+            
+            // Очищаем предыдущий QR-код и генерируем новый со ссылкой на подписку
             const qrContainer = document.getElementById('qr-container');
             if (qrContainer) {
                 qrContainer.innerHTML = '';
                 new QRCode(qrContainer, {
-                    text: vlessLink,
+                    text: subUrl,
                     width: 180,
                     height: 180,
                     colorDark : "#03050c",
@@ -1755,14 +1757,14 @@
             }
             
             document.getElementById('btn-import').onclick = () => {
-                // Импортируем стандартную универсальную VLESS ссылку
-                window.location.href = vlessLink;
+                // Импортируем подписку в HAPP (через happLink) или в Hiddify
+                window.location.href = happLink || subUrl.replace('https://', 'hiddify://import/');
             };
             
             const btnCopy = document.getElementById('btn-copy-key');
             if (btnCopy) {
                 btnCopy.onclick = async () => {
-                    const textToCopy = vlessLink;
+                    const textToCopy = subUrl;
                     try {
                         await navigator.clipboard.writeText(textToCopy);
                         const originalHtml = btnCopy.innerHTML;
