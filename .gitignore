@@ -1,2 +1,7 @@
 # Ignore markdown design documentation for GitHub Pages build
 *.md
+
+# Secrets and Credentials
+*.json
+client_secret_*.json
+
