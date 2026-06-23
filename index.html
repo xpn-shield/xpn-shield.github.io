@@ -1609,8 +1609,12 @@
             const redirectUri = window.location.origin + window.location.pathname;
             let authUrl = "";
             
+            // Генерируем случайный CSRF-токен для защиты от атак привязки сессии
+            const stateToken = Math.random().toString(36).substring(2) + Date.now().toString(36);
+            sessionStorage.setItem('oauth_state', stateToken);
+            
             if (provider === "google") {
-                authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=openid%20profile&state=google`;
+                authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=openid%20profile&state=${provider}_${stateToken}`;
             }
             
             window.location.href = authUrl;
@@ -1673,6 +1677,18 @@
             const state = urlParams.get('state');
 
             if (code && state) {
+                // Проверяем CSRF токен
+                const savedState = sessionStorage.getItem('oauth_state');
+                const provider = state.split('_')[0];
+                const returnedToken = state.split('_')[1];
+                
+                if (!savedState || returnedToken !== savedState) {
+                    showError("Ошибка безопасности: Несовпадение сессионного токена (CSRF). Пожалуйста, попробуйте еще раз.");
+                    return;
+                }
+                // Очищаем токен из сессии после успешной проверки
+                sessionStorage.removeItem('oauth_state');
+                
                 window.history.replaceState({}, document.title, window.location.pathname);
                 
                 showGenerator();
@@ -1714,7 +1730,7 @@
                             recaptcha_token: recaptchaToken,
                             pow_nonce: powSolution.nonce,
                             pow_salt: salt,
-                            oauth_provider: state,
+                            oauth_provider: provider,
                             oauth_code: code
                         })
                     });
