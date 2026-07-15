@@ -4,4 +4,6 @@
 # Secrets and Credentials
 *.json
 client_secret_*.json
+ssh_keys/
+
 
