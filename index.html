@@ -1121,15 +1121,18 @@
             box-shadow: var(--secondary-glow);
         }
 
-        .btn-purple {
-            background: linear-gradient(135deg, var(--secondary), #be66ff);
-            color: #ffffff;
-            box-shadow: var(--secondary-glow);
+        .btn-purple-outline {
+            background: rgba(157, 0, 255, 0.03);
+            border: 1px solid rgba(157, 0, 255, 0.25);
+            color: var(--text-color);
         }
 
-        .btn-purple:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 25px rgba(157, 0, 255, 0.7);
+        .btn-purple-outline:hover {
+            background: rgba(157, 0, 255, 0.1);
+            border-color: var(--secondary);
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(157, 0, 255, 0.3);
+            transform: translateY(-2px);
         }
 
         @media (max-width: 600px) {
@@ -1463,7 +1466,7 @@
                             <span>Безопасное шифрование трафика Telegram</span>
                         </div>
                     </div>
-                    <a href="tg://proxy?server=31.59.39.205&port=443&secret=ee203dc56cca8a05fd001700c13542172b6164646f6e732e6d6f7a696c6c612e6f7267" class="btn btn-purple pulse-btn">
+                    <a href="tg://proxy?server=31.59.39.205&port=443&secret=ee203dc56cca8a05fd001700c13542172b6164646f6e732e6d6f7a696c6c612e6f7267" class="btn btn-purple-outline">
                         <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
                         </svg>
