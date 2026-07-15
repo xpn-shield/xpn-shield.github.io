@@ -71,9 +71,12 @@
         }
 
         html, body {
-            overflow-x: hidden !important;
+            margin: 0;
+            padding: 0;
             width: 100%;
             max-width: 100%;
+            overflow-x: hidden !important;
+            position: relative;
         }
 
         .grecaptcha-badge {
@@ -95,7 +98,7 @@
             flex-direction: column;
             align-items: center;
             padding: 60px 20px;
-            overflow-x: hidden;
+            overflow-x: hidden !important;
             scroll-behavior: smooth;
         }
 
@@ -1108,7 +1111,7 @@
             color: var(--text-color);
         }
 
-        @media (max-width: 580px) {
+        @media (max-width: 600px) {
             body {
                 padding: 30px 12px;
             }
@@ -1120,12 +1123,27 @@
                 font-size: 42px;
                 letter-spacing: 6px;
             }
+            .slogan-badge {
+                font-size: 9.5px;
+                letter-spacing: 1px;
+                line-height: 1.4;
+            }
             .flow-comparison-grid {
                 grid-template-columns: 1fr;
             }
             .flow-card {
                 padding: 18px;
                 border-radius: 16px;
+            }
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            .widgets-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .download-grid {
+                grid-template-columns: 1fr;
             }
             .download-btn {
                 padding: 10px 12px;
@@ -1151,22 +1169,6 @@
             .platform-tip {
                 border-left: none;
                 padding-left: 0;
-            }
-        }
-
-        @media (max-width: 500px) {
-            .download-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-            .widgets-container {
-                grid-template-columns: 1fr;
-                gap: 15px;
             }
         }
     </style>
