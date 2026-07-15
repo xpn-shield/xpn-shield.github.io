@@ -1452,13 +1452,7 @@
                     <div id="qr-container"></div>
                 </div>
                 <div class="result-actions">
-                    <button class="btn btn-primary btn-cyber-action" id="btn-import">
-                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                        </svg>
-                        Импортировать в HAPP
-                    </button>
-                    <button class="btn btn-cyber-outline" id="btn-copy-key">
+                    <button class="btn btn-primary btn-cyber-action" id="btn-copy-key">
                         <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
@@ -1775,45 +1769,79 @@
                 });
             }
             
-            document.getElementById('btn-import').onclick = () => {
-                // Импортируем подписку в HAPP (через happLink) или в Hiddify
-                window.location.href = happLink || subUrl.replace('https://', 'hiddify://import/');
-                
-                // Перенаправляем в Telegram-бот через 1.5 секунды
-                setTimeout(() => {
-                    window.location.href = 'https://t.me/XPN_PRIVATE_BOT?start=c9f69cad-dc95-4307-84e5-b74708365d5b';
-                }, 1500);
-            };
-            
             const btnCopy = document.getElementById('btn-copy-key');
             if (btnCopy) {
-                btnCopy.onclick = async () => {
+                btnCopy.onclick = () => {
                     const textToCopy = subUrl;
-                    try {
-                        await navigator.clipboard.writeText(textToCopy);
-                        const originalHtml = btnCopy.innerHTML;
-                        btnCopy.innerHTML = `
-                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="#00cca3" stroke-width="2.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                            </svg>
-                            Скопировано!
-                        `;
-                        btnCopy.style.borderColor = '#00cca3';
-                        btnCopy.style.color = '#00cca3';
+                    
+                    const doCopy = (text) => {
+                        if (navigator.clipboard && window.isSecureContext) {
+                            return navigator.clipboard.writeText(text);
+                        }
                         
-                        // Перенаправляем в Telegram-бот через 1.5 секунды
-                        setTimeout(() => {
-                            window.location.href = 'https://t.me/XPN_PRIVATE_BOT?start=c9f69cad-dc95-4307-84e5-b74708365d5b';
-                        }, 1500);
+                        // Надежный fallback для iOS / старых браузеров
+                        const textArea = document.createElement("textarea");
+                        textArea.value = text;
+                        textArea.style.position = "fixed";
+                        textArea.style.top = "0";
+                        textArea.style.left = "0";
+                        textArea.style.width = "2em";
+                        textArea.style.height = "2em";
+                        textArea.style.padding = "0";
+                        textArea.style.border = "none";
+                        textArea.style.outline = "none";
+                        textArea.style.boxShadow = "none";
+                        textArea.style.background = "transparent";
+                        
+                        document.body.appendChild(textArea);
+                        textArea.focus();
+                        textArea.select();
+                        
+                        const range = document.createRange();
+                        range.selectNodeContents(textArea);
+                        const selection = window.getSelection();
+                        selection.removeAllRanges();
+                        selection.addRange(range);
+                        textArea.setSelectionRange(0, 999999);
+                        
+                        try {
+                            const successful = document.execCommand('copy');
+                            document.body.removeChild(textArea);
+                            return successful ? Promise.resolve() : Promise.reject(new Error("execCommand failed"));
+                        } catch (err) {
+                            document.body.removeChild(textArea);
+                            return Promise.reject(err);
+                        }
+                    };
 
-                        setTimeout(() => {
-                            btnCopy.innerHTML = originalHtml;
-                            btnCopy.style.borderColor = '';
-                            btnCopy.style.color = '';
-                        }, 2000);
-                    } catch (err) {
-                        alert("Не удалось скопировать. Скопируйте ссылку вручную.");
-                    }
+                    doCopy(textToCopy)
+                        .then(() => {
+                            const originalHtml = btnCopy.innerHTML;
+                            btnCopy.innerHTML = `
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="#03050c" stroke-width="2.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                </svg>
+                                Скопировано!
+                            `;
+                            btnCopy.style.background = '#00cca3';
+                            btnCopy.style.borderColor = '#00cca3';
+                            btnCopy.style.color = '#03050c';
+                            
+                            // Перенаправляем в Telegram-бот через 1.5 секунды
+                            setTimeout(() => {
+                                window.location.href = 'https://t.me/XPN_PRIVATE_BOT?start=c9f69cad-dc95-4307-84e5-b74708365d5b';
+                            }, 1500);
+
+                            setTimeout(() => {
+                                btnCopy.innerHTML = originalHtml;
+                                btnCopy.style.background = '';
+                                btnCopy.style.borderColor = '';
+                                btnCopy.style.color = '';
+                            }, 2000);
+                        })
+                        .catch((err) => {
+                            window.prompt("Не удалось скопировать автоматически. Пожалуйста, скопируйте ссылку вручную:", textToCopy);
+                        });
                 };
             }
         }
