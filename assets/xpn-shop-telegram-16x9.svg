@@ -1,0 +1,311 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080"
+  viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid meet" fill="none" role="img" focusable="false"
+  aria-labelledby="xpn-shop-title" aria-describedby="xpn-shop-desc">
+  <title id="xpn-shop-title">XPN</title>
+  <desc id="xpn-shop-desc">Логотип XPN с титановыми буквами и тонкими дорожками на тёмном фиолетовом фоне.</desc>
+  <defs>
+    <linearGradient id="xpn-shop-bg" x1="72" y1="12" x2="176" y2="248"
+      gradientUnits="userSpaceOnUse" gradientTransform="scale(7.5 4.21875)">
+      <stop stop-color="#221b2b"/>
+      <stop offset=".35" stop-color="#140e1b"/>
+      <stop offset=".7" stop-color="#0f0a14"/>
+      <stop offset="1" stop-color="#0f0b14"/>
+    </linearGradient>
+    <radialGradient id="xpn-shop-sheen" cx="64" cy="20" r="168"
+      gradientUnits="userSpaceOnUse" gradientTransform="scale(7.5 4.21875)">
+      <stop stop-color="#e8e2ef" stop-opacity=".065"/>
+      <stop offset=".6" stop-color="#e1d9ea" stop-opacity=".018"/>
+      <stop offset="1" stop-color="#e1d9ea" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="xpn-shop-ambient" cx="170" cy="208" r="106"
+      gradientUnits="userSpaceOnUse" gradientTransform="scale(7.5 4.21875)">
+      <stop stop-color="#917aad" stop-opacity=".07"/>
+      <stop offset=".55" stop-color="#917aad" stop-opacity=".025"/>
+      <stop offset="1" stop-color="#917aad" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="xpn-shop-metal" x1="6" y1="8" x2="178" y2="66" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ece7f2"/>
+      <stop offset=".18" stop-color="#baa8d0"/>
+      <stop offset=".33" stop-color="#ad9bc2"/>
+      <stop offset=".45" stop-color="#d7cce4"/>
+      <stop offset=".52" stop-color="#eae5f1"/>
+      <stop offset=".65" stop-color="#cabcdb"/>
+      <stop offset=".8" stop-color="#a28fba"/>
+      <stop offset="1" stop-color="#735992"/>
+    </linearGradient>
+    <linearGradient id="xpn-shop-depth" x1="10" y1="14" x2="172" y2="59" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#443556"/>
+      <stop offset=".35" stop-color="#322740"/>
+      <stop offset=".67" stop-color="#292034"/>
+      <stop offset="1" stop-color="#665082"/>
+    </linearGradient>
+    <linearGradient id="xpn-shop-engraving" x1="10" y1="14" x2="172" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5c4775"/>
+      <stop offset=".48" stop-color="#785d98"/>
+      <stop offset="1" stop-color="#4a3a5e"/>
+    </linearGradient>
+    <linearGradient id="xpn-shop-bevel" x1="71" y1="14" x2="114" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#e8e2f0"/>
+      <stop offset=".23" stop-color="#c3b3d6"/>
+      <stop offset=".51" stop-color="#745a93"/>
+      <stop offset=".78" stop-color="#433456"/>
+      <stop offset="1" stop-color="#9f8bb8"/>
+    </linearGradient>
+    <linearGradient id="xpn-shop-lit" x1="10" y1="14" x2="172" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f2eef6"/>
+      <stop offset=".4" stop-color="#e0d7ea"/>
+      <stop offset="1" stop-color="#b7a5ce"/>
+    </linearGradient>
+    <linearGradient id="xpn-shop-mid" x1="10" y1="14" x2="172" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#a794be"/>
+      <stop offset=".45" stop-color="#9882b3"/>
+      <stop offset="1" stop-color="#745a94"/>
+    </linearGradient>
+    <linearGradient id="xpn-shop-dark" x1="10" y1="14" x2="172" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#53416a"/>
+      <stop offset=".45" stop-color="#513f67"/>
+      <stop offset="1" stop-color="#453657"/>
+    </linearGradient>
+    <linearGradient id="xpn-shop-reflection" x1="0" y1="14" x2="0" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#faf9fc" stop-opacity="0"/>
+      <stop offset=".18" stop-color="#faf9fc" stop-opacity=".035"/>
+      <stop offset=".37" stop-color="#faf9fc" stop-opacity=".17"/>
+      <stop offset=".54" stop-color="#faf9fc" stop-opacity=".035"/>
+      <stop offset=".73" stop-color="#faf9fc" stop-opacity="0"/>
+      <stop offset="1" stop-color="#faf9fc" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="xpn-shop-shadow" x="2" y="6" width="182" height="66"
+      filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="1.1"/>
+    </filter>
+    <filter id="xpn-shop-satin" x="10" y="14" width="162" height="44"
+      filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency=".06 3"
+        numOctaves="1" seed="17" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope=".045"/>
+      </feComponentTransfer>
+    </filter>
+    <radialGradient id="xpn-shop-trace-fade" cx="960" cy="540" r="980"
+      gradientUnits="userSpaceOnUse" gradientTransform="translate(0 216) scale(1 .6)">
+      <stop stop-color="#202020"/>
+      <stop offset=".32" stop-color="#303030"/>
+      <stop offset=".63" stop-color="#C0C0C0"/>
+      <stop offset=".86" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
+    </radialGradient>
+    <mask id="xpn-shop-board-mask" x="0" y="0" width="1920" height="1080"
+      maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse"
+      style="mask-type:luminance">
+      <rect width="1920" height="1080" fill="url(#xpn-shop-trace-fade)"/>
+    </mask>
+    <g id="xpn-shop-via">
+      <circle r="3.2" fill="#17101f" stroke="#967fb1" stroke-width="1"/>
+      <circle r="1" fill="#967fb1" fill-opacity=".28"/>
+    </g>
+    <g id="xpn-shop-small-via">
+      <circle r="2.2" fill="#150f1d" stroke="#846aa3" stroke-width=".85"/>
+    </g>
+    <path id="xpn-shop-letters" fill-rule="evenodd" clip-rule="evenodd" d="
+      M10 14H22L34 29L46 14H58L40 36L58 58H46L34 43L22 58H10L28 36Z
+      M70 58V14H96C109 14 116 22 116 31C116 41 109 48 96 48H80V58Z
+      M80 24V38H95C102 38 106 36 106 31C106 26 102 24 95 24Z
+      M130 58V14H141L162 42V14H172V58H161L140 30V58Z"/>
+    <path id="xpn-shop-face" fill-rule="evenodd" clip-rule="evenodd" d="
+      M10.802 14.38H21.817L34 29.608L46.183 14.38H57.198L39.509 36L57.198 57.62H46.183L34 42.392L21.817 57.62H10.802L28.491 36Z
+      M70.38 57.62V14.38H96C108.79 14.38 115.62 22.18 115.62 31C115.62 40.79 108.79 47.62 96 47.62H79.62V57.62Z
+      M79.62 23.62V38.38H95C102.25 38.38 106.38 36.11 106.38 31C106.38 25.89 102.25 23.62 95 23.62Z
+      M130.38 57.62V14.38H140.81L162.38 43.14V14.38H171.62V57.62H161.19L139.62 28.86V57.62Z"/>
+    <path id="xpn-shop-grooves" d="
+      M20 19.5L30.8 33.2M48 19.5L37.2 33.2
+      M20 52.5L30.8 38.8M48 52.5L37.2 38.8
+      M74.5 25V48M143.5 26.5L159.1 47.3"/>
+    <path id="xpn-shop-fine-grooves" d="
+      M18.4 20.1L28.9 33.2M49.6 20.1L39.1 33.2
+      M18.4 51.9L28.9 38.8M49.6 51.9L39.1 38.8
+      M76.1 26V44.5M145.1 26.5L160.7 47.3"/>
+    <clipPath id="xpn-shop-engraving-clip" clipPathUnits="userSpaceOnUse">
+      <use href="#xpn-shop-face"/>
+    </clipPath>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#xpn-shop-bg)"/>
+  <rect width="1920" height="1080" fill="url(#xpn-shop-sheen)"/>
+  <rect width="1920" height="1080" fill="url(#xpn-shop-ambient)"/>
+  <g id="xpn-shop-board" mask="url(#xpn-shop-board-mask)"
+    stroke-linecap="round" stroke-linejoin="round">
+    <g stroke="#725990" stroke-width="1.35" opacity=".43">
+      <path id="xpn-shop-main-traces" d="
+      M0 210H170L234 274H386L430 318H564V348
+      M0 234H154L220 300H354L402 348H484V324
+      M0 258H138L206 326H318L360 368H404V300
+      M80 0V116L112 148H196L254 206H316L360 250H496L534 288H636
+      M248 0V96L286 134H470L512 176H726L778 228H936
+      M1120 0V94L1084 130V204
+      M1920 184H1792L1742 234H1602L1544 292H1454V350
+      M1920 208H1808L1754 262H1630L1574 318H1526V328
+      M1920 232H1836L1778 290H1712L1662 340H1610V360
+      M1840 0V104L1796 148H1644L1608 184H1420L1368 236H1344V288
+      M1568 0V82L1530 120H1308L1268 160H1214V230
+      M1920 474H1814L1778 510H1700V500
+      M1920 560H1832L1796 524H1784
+      M0 520H148L188 480H238V472
+      M0 608H168L218 558H268V536
+      M0 806H188L252 742H402L434 710H560V742
+      M0 832H206L276 762H444L492 810H656V768
+      M0 858H220L294 784H386L466 864H804V842
+      M116 1080V952L162 906H360L414 852H508
+      M652 1080V966L706 912H948L992 868H1056V892
+      M1920 868H1772L1696 792H1584L1536 744H1454
+      M1920 894H1756L1698 836H1590L1530 776H1514
+      M1920 920H1740L1682 862H1640L1588 810
+      M1800 1080V998L1758 956H1608L1570 918H1384L1328 862H1232V792
+      M1490 1080V1000L1446 956H1164L1116 908"/>
+    </g>
+    <use href="#xpn-shop-main-traces" transform="translate(0 -.45)"
+      stroke="#c2b2d6" stroke-width=".45" opacity=".14"/>
+    <g stroke="#725990" stroke-width=".72" opacity=".33">
+      <path d="
+        M0 148H184L238 202H362L408 248H526
+        M0 174H152L198 220H260
+        M136 0V94L170 128H252L298 174H430
+        M304 0V74L340 110H510L560 160H672
+        M440 0V48L472 80H706L752 126V168
+        M706 0V56L742 92H902L948 138V192
+        M952 0V56L982 86H1040
+        M1168 0V72L1210 114H1368L1412 158V196
+        M1300 0V50L1334 84H1520
+        M1712 0V68L1682 98H1574
+        M1920 130H1800L1732 198H1652
+        M1920 156H1840L1812 184H1764
+        M1920 316H1804L1758 362H1692V410
+        M1920 342H1868L1834 376H1780V440
+        M0 418H92L138 464H168V496
+        M0 444H66L104 482V552
+        M0 660H152L204 608H236V588
+        M0 686H128L178 636H218
+        M1920 642H1748L1704 598H1680V568
+        M1920 668H1768L1720 620H1668
+        M0 920H268L334 854H392
+        M0 946H204L244 906H324
+        M236 1080V994L280 950H450L490 910H608
+        M416 1080V1006L452 970H542
+        M864 1080V1018L900 982H1070L1106 946
+        M1044 1080V1030L1080 994H1190
+        M1308 1080V1032L1352 988H1498
+        M1660 1080V1030L1704 986H1800
+        M1920 972H1818L1772 926H1730
+        M1920 998H1870L1834 962H1796"/>
+    </g>
+    <g opacity=".68">
+      <use href="#xpn-shop-via" x="564" y="348"/>
+      <use href="#xpn-shop-via" x="484" y="324"/>
+      <use href="#xpn-shop-via" x="404" y="300"/>
+      <use href="#xpn-shop-via" x="636" y="288"/>
+      <use href="#xpn-shop-via" x="936" y="228"/>
+      <use href="#xpn-shop-via" x="1084" y="204"/>
+      <use href="#xpn-shop-via" x="1454" y="350"/>
+      <use href="#xpn-shop-via" x="1526" y="328"/>
+      <use href="#xpn-shop-via" x="1610" y="360"/>
+      <use href="#xpn-shop-via" x="1344" y="288"/>
+      <use href="#xpn-shop-via" x="1214" y="230"/>
+      <use href="#xpn-shop-via" x="1700" y="500"/>
+      <use href="#xpn-shop-via" x="1784" y="524"/>
+      <use href="#xpn-shop-via" x="238" y="472"/>
+      <use href="#xpn-shop-via" x="268" y="536"/>
+      <use href="#xpn-shop-via" x="560" y="742"/>
+      <use href="#xpn-shop-via" x="656" y="768"/>
+      <use href="#xpn-shop-via" x="804" y="842"/>
+      <use href="#xpn-shop-via" x="508" y="852"/>
+      <use href="#xpn-shop-via" x="1056" y="892"/>
+      <use href="#xpn-shop-via" x="1454" y="744"/>
+      <use href="#xpn-shop-via" x="1514" y="776"/>
+      <use href="#xpn-shop-via" x="1588" y="810"/>
+      <use href="#xpn-shop-via" x="1232" y="792"/>
+      <use href="#xpn-shop-via" x="1116" y="908"/>
+    </g>
+    <g opacity=".5">
+      <use href="#xpn-shop-small-via" x="526" y="248"/>
+      <use href="#xpn-shop-small-via" x="430" y="174"/>
+      <use href="#xpn-shop-small-via" x="672" y="160"/>
+      <use href="#xpn-shop-small-via" x="752" y="168"/>
+      <use href="#xpn-shop-small-via" x="948" y="192"/>
+      <use href="#xpn-shop-small-via" x="1040" y="86"/>
+      <use href="#xpn-shop-small-via" x="1412" y="196"/>
+      <use href="#xpn-shop-small-via" x="1520" y="84"/>
+      <use href="#xpn-shop-small-via" x="1574" y="98"/>
+      <use href="#xpn-shop-small-via" x="1652" y="198"/>
+      <use href="#xpn-shop-small-via" x="1692" y="410"/>
+      <use href="#xpn-shop-small-via" x="1780" y="440"/>
+      <use href="#xpn-shop-small-via" x="168" y="496"/>
+      <use href="#xpn-shop-small-via" x="104" y="552"/>
+      <use href="#xpn-shop-small-via" x="236" y="588"/>
+      <use href="#xpn-shop-small-via" x="218" y="636"/>
+      <use href="#xpn-shop-small-via" x="1680" y="568"/>
+      <use href="#xpn-shop-small-via" x="1668" y="620"/>
+      <use href="#xpn-shop-small-via" x="392" y="854"/>
+      <use href="#xpn-shop-small-via" x="608" y="910"/>
+      <use href="#xpn-shop-small-via" x="542" y="970"/>
+      <use href="#xpn-shop-small-via" x="1190" y="994"/>
+      <use href="#xpn-shop-small-via" x="1498" y="988"/>
+      <use href="#xpn-shop-small-via" x="1730" y="926"/>
+      <use href="#xpn-shop-small-via" x="1796" y="962"/>
+    </g>
+    <path stroke="#a18eb9" stroke-width="3" stroke-linecap="butt" opacity=".19" d="
+      M196 394V405M208 394V405M220 394V405M232 394V405
+      M196 423V434M208 423V434M220 423V434M232 423V434
+      M1744 706V717M1756 706V717M1768 706V717M1780 706V717
+      M1744 735V746M1756 735V746M1768 735V746M1780 735V746
+      M818 162H829M818 174H829M850 162H861M850 174H861
+      M962 953H973M962 965H973M994 953H1005M994 965H1005"/>
+  </g>
+  <g id="xpn-shop-mark" transform="translate(268.4 264.5) scale(7.6)"
+    data-depth=".5" stroke-linejoin="round">
+    <use href="#xpn-shop-letters" transform="translate(.15 1.5)" fill="#050307"
+      opacity=".54" filter="url(#xpn-shop-shadow)"/>
+    <use href="#xpn-shop-letters" transform="translate(0 .5)" fill="url(#xpn-shop-depth)"/>
+    <use href="#xpn-shop-letters" fill="url(#xpn-shop-bevel)"/>
+    <g fill="url(#xpn-shop-lit)">
+      <path d="M10 14H22L21.817 14.38H10.802Z"/>
+      <path d="M34 29L46 14L46.183 14.38L34 29.608Z"/>
+      <path d="M46 14H58L57.198 14.38H46.183Z"/>
+      <path d="M10 58L28 36H28.491L10.802 57.62Z"/>
+      <path d="M130 58V14L130.38 14.38V57.62Z"/>
+      <path d="M130 14H141L140.81 14.38H130.38Z"/>
+      <path d="M162 42V14L162.38 14.38V43.14Z"/>
+      <path d="M162 14H172L171.62 14.38H162.38Z"/>
+    </g>
+    <g fill="url(#xpn-shop-mid)">
+      <path d="M22 14L34 29V29.608L21.817 14.38Z"/>
+      <path d="M40 36L58 58L57.198 57.62L39.509 36Z"/>
+      <path d="M46 58L34 43V42.392L46.183 57.62Z"/>
+      <path d="M28 36L10 14L10.802 14.38L28.491 36Z"/>
+      <path d="M141 14L162 42L162.38 43.14L140.81 14.38Z"/>
+      <path d="M161 58L140 30L139.62 28.86L161.19 57.62Z"/>
+    </g>
+    <g fill="url(#xpn-shop-dark)">
+      <path d="M58 14L40 36H39.509L57.198 14.38Z"/>
+      <path d="M58 58H46L46.183 57.62H57.198Z"/>
+      <path d="M34 43L22 58L21.817 57.62L34 42.392Z"/>
+      <path d="M22 58H10L10.802 57.62H21.817Z"/>
+      <path d="M172 14V58L171.62 57.62V14.38Z"/>
+      <path d="M172 58H161L161.19 57.62H171.62Z"/>
+      <path d="M140 30V58L139.62 57.62V28.86Z"/>
+      <path d="M140 58H130L130.38 57.62H139.62Z"/>
+    </g>
+    <use href="#xpn-shop-face" fill="url(#xpn-shop-metal)"/>
+    <use href="#xpn-shop-face" fill="url(#xpn-shop-reflection)"/>
+    <g clip-path="url(#xpn-shop-engraving-clip)" stroke-linecap="round">
+      <rect x="10" y="14" width="162" height="44"
+        fill="#FFFFFF" filter="url(#xpn-shop-satin)"/>
+      <use href="#xpn-shop-grooves" transform="translate(.055 .085)"
+        stroke="#f2eff6" stroke-width=".33" opacity=".4"/>
+      <use href="#xpn-shop-grooves"
+        stroke="url(#xpn-shop-engraving)" stroke-width=".25" opacity=".52"/>
+      <use href="#xpn-shop-fine-grooves" transform="translate(.045 .065)"
+        stroke="#f2eff6" stroke-width=".25" opacity=".32"/>
+      <use href="#xpn-shop-fine-grooves"
+        stroke="url(#xpn-shop-engraving)" stroke-width=".17" opacity=".34"/>
+    </g>
+  </g>
+</svg>
