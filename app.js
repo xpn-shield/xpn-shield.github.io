@@ -26,7 +26,7 @@ const continents = [
   [[-7,50],[-4,57],[-6,59],[1,58],[1,51],[-7,50]],
   [[130,32],[136,35],[141,41],[145,44],[143,37],[137,33],[130,32]]
 ];
-let width = 0, height = 0, phase = 0, raf = 0, visible = true;
+let width = 0, height = 0, phase = 0, flightTime = 0, raf = 0, visible = true;
 const rad = Math.PI / 180;
 function project(lon, lat, radius, cx, cy) {
   const l = (lon - 26 + phase) * rad, p = lat * rad, tilt = 15 * rad;
@@ -63,6 +63,81 @@ function orbitSegment(radius, cx, cy, start, end, marker = false) {
   }
   ctx.restore();
 }
+// Elevated great-circle routes: the packets stay attached to the rotating globe.
+const networkNodes = [
+  [2,49],[31,30],[37,55],[72,19],[103,31],[-74,41],[18,-33],[139,36],[13,52],
+  [-122,38],[-118,34],[-87,42],[-99,19],[-46,-23],[-3,40],[-.1,51.5],
+  [12.5,42],[29,41],[55,25],[77,29],[100,14],[116,40],[127,37],[151,-34],
+  [174,-37],[21,52],[10,60],[25,60],[18,59],[44,42]
+];
+const flightRoutes = [
+  {from:[-74,41],to:[2,49],delay:0,duration:3.2,lift:.55},
+  {from:[2,49],to:[37,55],delay:2.3,duration:2.5,lift:.46},
+  {from:[37,55],to:[103,31],delay:4.8,duration:3.5,lift:.65},
+  {from:[72,19],to:[139,36],delay:1.2,duration:3.1,lift:.6},
+  {from:[13,52],to:[72,19],delay:5.9,duration:3.2,lift:.62},
+  {from:[31,30],to:[103,31],delay:3.6,duration:3.6,lift:.58},
+  {from:[-122,38],to:[-87,42],delay:1.7,duration:2.8,lift:.5},
+  {from:[-87,42],to:[-74,41],delay:4.2,duration:2.2,lift:.42},
+  {from:[-74,41],to:[-.1,51.5],delay:5.2,duration:3.1,lift:.55},
+  {from:[-3,40],to:[12.5,42],delay:.6,duration:2.3,lift:.42},
+  {from:[10,60],to:[37,55],delay:3,duration:2.5,lift:.38},
+  {from:[21,52],to:[116,40],delay:1.9,duration:3.4,lift:.55},
+  {from:[29,41],to:[55,25],delay:5.7,duration:2.6,lift:.48},
+  {from:[55,25],to:[77,29],delay:4.4,duration:2.5,lift:.48},
+  {from:[100,14],to:[127,37],delay:.4,duration:2.8,lift:.5},
+  {from:[127,37],to:[139,36],delay:3.8,duration:2.2,lift:.42}
+
+];
+function flightPoint(from, to, t, lift, radius, cx, cy) {
+  const dot = Math.max(-1,Math.min(1,from.reduce((sum,n,i)=>sum+n*to[i],0)));
+  const angle = Math.acos(dot), sine = Math.sin(angle);
+  const a = sine > .001 ? Math.sin((1-t)*angle)/sine : 1-t;
+  const b = sine > .001 ? Math.sin(t*angle)/sine : t;
+  const scale = radius*(1+Math.sin(Math.PI*t)*lift);
+  return [cx+(from[0]*a+to[0]*b)*scale,cy-(from[1]*a+to[1]*b)*scale];
+}
+function landingRing(point, progress) {
+  if (progress<0 || progress>1) return;
+  ctx.beginPath();ctx.arc(point[0],point[1],2+progress*13,0,Math.PI*2);
+  ctx.strokeStyle=`rgba(211,174,255,${(1-progress)*.7})`;ctx.lineWidth=1;ctx.stroke();
+  ctx.beginPath();ctx.arc(point[0],point[1],2.4,0,Math.PI*2);
+  ctx.fillStyle=`rgba(240,222,255,${1-progress})`;ctx.fill();
+}
+function drawFlights(radius, cx, cy) {
+  ctx.save();ctx.lineCap='round';ctx.lineJoin='round';
+  for (const route of flightRoutes) {
+    const elapsed = motion.matches ? route.duration*.55 : (flightTime+route.delay)%6.6;
+    if (elapsed>route.duration+.7) continue;
+    const a=project(...route.from,radius,cx,cy),b=project(...route.to,radius,cx,cy);
+    // Rear destinations never show through the surface.
+    if(a[2]<.12 || b[2]<.12) continue;
+    const from=[(a[0]-cx)/radius,(cy-a[1])/radius,a[2]];
+    const to=[(b[0]-cx)/radius,(cy-b[1])/radius,b[2]];
+    const progress=Math.min(1,elapsed/route.duration);
+    const fade=Math.min(1,elapsed/.3)*Math.max(0,1-(elapsed-route.duration)/.7);
+    ctx.beginPath();
+    for(let i=0;i<=48;i++){
+      const p=flightPoint(from,to,progress*i/48,route.lift,radius,cx,cy);
+      if(i===0)ctx.moveTo(...p);else ctx.lineTo(...p);
+    }
+    ctx.strokeStyle=`rgba(188,137,246,${.3*fade})`;ctx.lineWidth=1;ctx.stroke();
+    if(elapsed<route.duration){
+      const tail=Math.max(0,progress-.16);
+      for(let i=0;i<18;i++){
+        const t=tail+(progress-tail)*i/18,next=tail+(progress-tail)*(i+1)/18;
+        ctx.beginPath();ctx.moveTo(...flightPoint(from,to,t,route.lift,radius,cx,cy));
+        ctx.lineTo(...flightPoint(from,to,next,route.lift,radius,cx,cy));
+        ctx.strokeStyle=`rgba(205,161,255,${(i+1)/18*.9})`;ctx.lineWidth=1.7;ctx.stroke();
+      }
+      const head=flightPoint(from,to,progress,route.lift,radius,cx,cy);
+      ctx.shadowColor='#c183ff';ctx.shadowBlur=12;
+      ctx.beginPath();ctx.arc(...head,2.5,0,Math.PI*2);ctx.fillStyle='#f5e9ff';ctx.fill();ctx.shadowBlur=0;
+      if(elapsed<.5)landingRing(a,elapsed/.5);
+    }else landingRing(b,(elapsed-route.duration)/.7);
+  }
+  ctx.restore();
+}
 function draw() {
   ctx.clearRect(0,0,width,height);
   const r = width * .338, cx = width / 2, cy = height * .99;
@@ -79,14 +154,15 @@ function draw() {
     const points=[];for(let i=0;i<polygon.length-1;i++){const a=polygon[i],b=polygon[i+1];const n=Math.ceil(Math.max(Math.abs(a[0]-b[0]),Math.abs(a[1]-b[1]))/2);for(let j=0;j<n;j++)points.push([a[0]+(b[0]-a[0])*j/n,a[1]+(b[1]-a[1])*j/n]);}points.push(polygon.at(-1));
     ctx.shadowBlur=5;ctx.shadowColor='#af70ee65';curve(points,r,cx,cy,'#bf8effb5',.85);ctx.shadowBlur=0;
   }
-  for (const [lon,lat] of [[2,49],[31,30],[37,55],[72,19],[103,31],[-74,41],[18,-33],[139,36],[13,52]]) {
+  for (const [lon,lat] of networkNodes) {
     const [x,y,z]=project(lon,lat,r,cx,cy);if(z>.12){ctx.beginPath();ctx.arc(x,y,2,0,Math.PI*2);ctx.fillStyle='#e0c5ff';ctx.shadowBlur=12;ctx.shadowColor='#b87cff';ctx.fill();ctx.shadowBlur=0;ctx.beginPath();ctx.arc(x,y,6,0,Math.PI*2);ctx.strokeStyle='#cfa0ff44';ctx.lineWidth=.6;ctx.stroke();}
   }
+  drawFlights(r,cx,cy);
   orbitSegment(r,cx,cy,0,Math.PI,true);
 }
 function resize(){const bounds=canvas.getBoundingClientRect();width=bounds.width;height=bounds.height;const dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);draw();}
 let last=0;
-function animate(now){if(now-last>45){phase+=.2;draw();last=now;}if(visible&&!motion.matches)raf=requestAnimationFrame(animate);}
+function animate(now){if(now-last>45){phase+=.2;flightTime=now*.001;draw();last=now;}if(visible&&!motion.matches)raf=requestAnimationFrame(animate);}
 function updateAnimation(){cancelAnimationFrame(raf);if(visible&&!motion.matches)raf=requestAnimationFrame(animate);else draw();}
 new ResizeObserver(resize).observe(canvas);
 new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;updateAnimation();}).observe(canvas);

@@ -1,16 +1,106 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" fill="none">
-<defs>
- <linearGradient id="metal" x2="1" y2="1"><stop stop-color="#b9a9cd"/><stop offset=".38" stop-color="#41344f"/><stop offset=".65" stop-color="#81718f"/><stop offset="1" stop-color="#221b2c"/></linearGradient>
- <linearGradient id="core" x2="1" y2="1"><stop stop-color="#282033"/><stop offset="1" stop-color="#0c0a12"/></linearGradient>
- <g id="chip"><rect x="-58" y="-58" width="116" height="116" rx="8" stroke="url(#metal)" stroke-width="2" fill="#100d18"/><rect x="-46" y="-46" width="92" height="92" rx="4" fill="url(#core)" stroke="#9e7bc0" stroke-opacity=".5"/><rect x="-29" y="-29" width="58" height="58" rx="3" stroke="#a17cc8" stroke-opacity=".35"/><path d="M-20-10 0-22 20-10V12L0 24-20 12Z M0-22V0L20 12M0 0-20 12" stroke="#cbb7e0" stroke-opacity=".65"/><g stroke="#877295" stroke-width="3"><path d="M-40-59v-13m16 13v-13m16 13v-13m16 13v-13m16 13v-13m16 13v-13M-40 59v13m16-13v13m16-13v13m16-13v13m16-13v13m16-13v13M-59-40h-13m13 16h-13m13 16h-13m13 16h-13m13 16h-13m13 16h-13M59-40h13M59-24h13M59-8h13M59 8h13M59 24h13M59 40h13"/></g><circle cx="-37" cy="-37" r="2" fill="#bd96ed"/></g>
-</defs>
-<g stroke="#8f6cb1" stroke-opacity=".52" stroke-width="1">
- <path d="M0 82h118l42 42h118l52 52h100M0 98h110l42 42h120l52 52h68M0 114h102l42 42h122l52 52h50M0 474h70l64-64v-57M0 490h78l72-72v-65M0 506h86l80-80v-73M0 522h94l88-88v-81M206 255h90l51-51h62M206 271h104l51-51h69M206 287h120l51-51h54M134 197v-38l-46-46V0M150 197v-44l-46-46V0M166 197v-50l-46-46V0M150 341v151l68 68v80M166 341v143l68 68v88M182 341v135l68 68v96"/>
- <path d="M1200 90h-113l-52 52h-118l-44 44h-88M1200 106h-105l-52 52H925l-44 44h-58M1200 122h-97l-52 52H933l-44 44h-34M1200 420h-79l-53-53v-98M1200 436h-87l-61-61V269M1200 452h-95l-69-69V269M962 197h-85l-48 48h-77M962 213h-77l-48 48h-49M962 229h-69l-48 48h-33M1018 139V87l-56-56V0M1034 139V79l-48-48V0M1018 283v187l-68 68v102M1034 283v195l-68 68v94M1050 283v203l-68 68v86"/>
- <path d="M310 640v-77l55-55h92M326 640v-69l47-47h70M890 640v-90l-46-46h-90M874 640v-82l-38-38h-48"/>
-</g>
-<g fill="#bba4d0"><circle cx="430" cy="176" r="3"/><circle cx="392" cy="192" r="2"/><circle cx="409" cy="204" r="3"/><circle cx="368" cy="208" r="2"/><circle cx="785" cy="186" r="3"/><circle cx="823" cy="202" r="2"/><circle cx="752" cy="245" r="3"/><circle cx="457" cy="508" r="3"/><circle cx="754" cy="504" r="3"/></g>
-<use href="#chip" x="150" y="269"/><use href="#chip" x="1034" y="211"/>
-<g fill="#15111e" stroke="#786087" stroke-opacity=".6"><rect x="32" y="212" width="25" height="66" rx="3"/><rect x="1141" y="235" width="25" height="66" rx="3"/><rect x="266" y="46" width="60" height="18" rx="3"/><rect x="842" y="54" width="60" height="18" rx="3"/></g>
-<g stroke="#b396c9" stroke-opacity=".7"><path d="M27 224h35m-35 12h35m-35 12h35m-35 12h35M1136 247h35m-35 12h35m-35 12h35m-35 12h35"/></g>
+  <title>Схема XPN с электрическими импульсами по дорожкам</title>
+  <style>
+    .trace {stroke:#8f6cb1;stroke-opacity:.48;stroke-width:1.15;stroke-linejoin:round}
+    .current {stroke:#e2baff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:10 110;stroke-dashoffset:10;opacity:0;animation:current-flow 5s linear infinite}
+    .die {stroke:#ba8ded;stroke-width:1;animation:core-signal 5s ease-in-out infinite}
+    .indicator {fill:#d9b5ff;animation:core-signal 5s ease-in-out infinite}
+    @keyframes current-flow {0%{stroke-dashoffset:10;opacity:0}8%{opacity:0}18%,76%{opacity:1}92%,100%{stroke-dashoffset:-100;opacity:0}}
+    @keyframes core-signal {0%,100%{opacity:.35}45%,60%{opacity:.9}}
+    @media(prefers-reduced-motion:reduce) {.current{animation:none;opacity:0}.die,.indicator{animation:none;opacity:.65}}
+  </style>
+  <defs>
+    <linearGradient id="metal" x1="-58" y1="-58" x2="58" y2="58" gradientUnits="userSpaceOnUse"><stop stop-color="#c6b5d8"/><stop offset=".38" stop-color="#41344f"/><stop offset=".65" stop-color="#81718f"/><stop offset="1" stop-color="#221b2c"/></linearGradient>
+    <linearGradient id="core" x1="-46" y1="-46" x2="46" y2="46" gradientUnits="userSpaceOnUse"><stop stop-color="#282033"/><stop offset="1" stop-color="#0c0a12"/></linearGradient>
+<filter id="glow-0" filterUnits="userSpaceOnUse" x="-8" y="108" width="126" height="97" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="2"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="glow-1" filterUnits="userSpaceOnUse" x="-8" y="221" width="94" height="16" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="2"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="glow-2" filterUnits="userSpaceOnUse" x="102" y="333" width="106" height="373" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="2"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="glow-7" filterUnits="userSpaceOnUse" x="214" y="197" width="248" height="56" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="2"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="glow-8" filterUnits="userSpaceOnUse" x="-8" y="76" width="158" height="129" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="2"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="glow-13" filterUnits="userSpaceOnUse" x="-8" y="269" width="94" height="16" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="2"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="glow-18" filterUnits="userSpaceOnUse" x="166" y="333" width="106" height="373" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="2"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="glow-23" filterUnits="userSpaceOnUse" x="214" y="261" width="248" height="56" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="2"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <path id="trace-0" d="M0 116H42L110 184V197" pathLength="100"/>
+    <path id="trace-1" d="M0 229H78" pathLength="100"/>
+    <path id="trace-2" d="M110 341V470l90 90V698" pathLength="100"/>
+    <path id="trace-3" d="M222 229H302l40-40H454" pathLength="100"/>
+    <path id="trace-4" d="M0 100H42L126 184V197" pathLength="100"/>
+    <path id="trace-5" d="M0 245H78" pathLength="100"/>
+    <path id="trace-6" d="M126 341V454l90 90V698" pathLength="100"/>
+    <path id="trace-7" d="M222 245H318l40-40H454" pathLength="100"/>
+    <path id="trace-8" d="M0 84H42L142 184V197" pathLength="100"/>
+    <path id="trace-9" d="M0 261H78" pathLength="100"/>
+    <path id="trace-10" d="M142 341V438l90 90V698" pathLength="100"/>
+    <path id="trace-11" d="M222 261H334l40-40H454" pathLength="100"/>
+    <path id="trace-12" d="M0 68H42L158 184V197" pathLength="100"/>
+    <path id="trace-13" d="M0 277H78" pathLength="100"/>
+    <path id="trace-14" d="M158 341V422l90 90V698" pathLength="100"/>
+    <path id="trace-15" d="M222 277H350l40-40H454" pathLength="100"/>
+    <path id="trace-16" d="M0 52H42L174 184V197" pathLength="100"/>
+    <path id="trace-17" d="M0 293H78" pathLength="100"/>
+    <path id="trace-18" d="M174 341V406l90 90V698" pathLength="100"/>
+    <path id="trace-19" d="M222 293H366l40-40H454" pathLength="100"/>
+    <path id="trace-20" d="M0 36H42L190 184V197" pathLength="100"/>
+    <path id="trace-21" d="M0 309H78" pathLength="100"/>
+    <path id="trace-22" d="M190 341V390l90 90V698" pathLength="100"/>
+    <path id="trace-23" d="M222 309H382l40-40H454" pathLength="100"/>
+    <g id="chip">
+      <path d="M-40 -58v-14M-40 58v14M-58 -40h-14M58 -40h14 M-24 -58v-14M-24 58v14M-58 -24h-14M58 -24h14 M-8 -58v-14M-8 58v14M-58 -8h-14M58 -8h14 M8 -58v-14M8 58v14M-58 8h-14M58 8h14 M24 -58v-14M24 58v14M-58 24h-14M58 24h14 M40 -58v-14M40 58v14M-58 40h-14M58 40h14" stroke="#9b82b0" stroke-width="3"/>
+      <rect x="-58" y="-58" width="116" height="116" rx="8" stroke="url(#metal)" stroke-width="2" fill="#100d18"/>
+      <rect x="-46" y="-46" width="92" height="92" rx="4" fill="url(#core)" stroke="#9e7bc0" stroke-opacity=".5"/>
+      <rect class="die" x="-29" y="-29" width="58" height="58" rx="3"/>
+      <path d="M-20-10 0-22 20-10V12L0 24-20 12Z M0-22V0L20 12M0 0-20 12" stroke="#cbb7e0" stroke-opacity=".65"/>
+      <circle class="indicator" cx="-37" cy="-37" r="2"/>
+    </g>
+    <!-- Every trace ends at a pin tip, 72 units from the chip centre. -->
+    <g id="board-half">
+      <g class="trace">
+    <use href="#trace-0"/>
+    <use href="#trace-1"/>
+    <use href="#trace-2"/>
+    <use href="#trace-3"/>
+    <use href="#trace-4"/>
+    <use href="#trace-5"/>
+    <use href="#trace-6"/>
+    <use href="#trace-7"/>
+    <use href="#trace-8"/>
+    <use href="#trace-9"/>
+    <use href="#trace-10"/>
+    <use href="#trace-11"/>
+    <use href="#trace-12"/>
+    <use href="#trace-13"/>
+    <use href="#trace-14"/>
+    <use href="#trace-15"/>
+    <use href="#trace-16"/>
+    <use href="#trace-17"/>
+    <use href="#trace-18"/>
+    <use href="#trace-19"/>
+    <use href="#trace-20"/>
+    <use href="#trace-21"/>
+    <use href="#trace-22"/>
+    <use href="#trace-23"/>
+      </g>
+      <g>
+    <use class="current" filter="url(#glow-0)" href="#trace-0" style="animation-duration:5.0s;animation-delay:-0.00s"/>
+    <use class="current" filter="url(#glow-1)" href="#trace-1" style="animation-duration:5.6s;animation-delay:-0.43s"/>
+    <use class="current" filter="url(#glow-2)" href="#trace-2" style="animation-duration:6.2s;animation-delay:-0.86s"/>
+    <use class="current" filter="url(#glow-7)" href="#trace-7" style="animation-duration:6.8s;animation-delay:-3.01s"/>
+    <use class="current" filter="url(#glow-8)" href="#trace-8" style="animation-duration:5.0s;animation-delay:-3.44s"/>
+    <use class="current" filter="url(#glow-13)" href="#trace-13" style="animation-duration:5.6s;animation-delay:-5.59s"/>
+    <use class="current" filter="url(#glow-18)" href="#trace-18" style="animation-duration:6.2s;animation-delay:-7.74s"/>
+    <use class="current" filter="url(#glow-23)" href="#trace-23" style="animation-duration:6.8s;animation-delay:-9.89s"/>
+      </g>
+      <g stroke="#b99bcc" stroke-opacity=".7" fill="#15101e">
+    <circle cx="454" cy="189" r="2.6"/>
+    <circle cx="454" cy="205" r="2.6"/>
+    <circle cx="454" cy="221" r="2.6"/>
+    <circle cx="454" cy="237" r="2.6"/>
+    <circle cx="454" cy="253" r="2.6"/>
+    <circle cx="454" cy="269" r="2.6"/>
+      </g>
+      <use href="#chip" x="150" y="269"/>
+    </g>
+  </defs>
+  <use href="#board-half"/>
+  <use href="#board-half" transform="translate(1200 -58) scale(-1 1)"/>
 </svg>
