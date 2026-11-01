@@ -42,12 +42,34 @@ function curve(points, radius, cx, cy, color, lineWidth = .55) {
   }
   ctx.strokeStyle = color; ctx.lineWidth = lineWidth; ctx.stroke();
 }
+function orbitSegment(radius, cx, cy, start, end, marker = false) {
+  ctx.save();
+  ctx.translate(cx, cy - radius * .16);
+  ctx.rotate(-.13);
+  ctx.beginPath();
+  ctx.ellipse(0, 0, radius * 1.31, radius * .235, 0, start, end);
+  ctx.strokeStyle = '#aa71eeaa';
+  ctx.lineWidth = 1.25;
+  ctx.shadowBlur = 12;
+  ctx.shadowColor = '#9962e277';
+  ctx.stroke();
+  ctx.shadowBlur = 0;
+  if (marker) {
+    const angle = .8;
+    ctx.beginPath();
+    ctx.arc(Math.cos(angle) * radius * 1.31, Math.sin(angle) * radius * .235, 3, 0, Math.PI * 2);
+    ctx.fillStyle = '#e2caff';
+    ctx.fill();
+  }
+  ctx.restore();
+}
 function draw() {
   ctx.clearRect(0,0,width,height);
   const r = width * .338, cx = width / 2, cy = height * .99;
   const glow = ctx.createRadialGradient(cx,cy,r*.1,cx,cy,r*1.25);
   glow.addColorStop(0,'#59348b55');glow.addColorStop(.68,'#58358132');glow.addColorStop(1,'#38214e00');
   ctx.fillStyle=glow;ctx.fillRect(0,0,width,height);
+  orbitSegment(r,cx,cy,Math.PI,Math.PI*2);
   const sphere = ctx.createRadialGradient(cx-r*.18,cy-r*.62,r*.06,cx,cy,r);
   sphere.addColorStop(0,'#30203e');sphere.addColorStop(.55,'#21172f');sphere.addColorStop(1,'#0e0d16');
   ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fillStyle=sphere;ctx.fill();
@@ -61,8 +83,7 @@ function draw() {
   for (const [lon,lat] of [[2,49],[31,30],[37,55],[72,19],[103,31],[-74,41],[18,-33],[139,36],[13,52]]) {
     const [x,y,z]=project(lon,lat,r,cx,cy);if(z>.12){ctx.beginPath();ctx.arc(x,y,2,0,Math.PI*2);ctx.fillStyle='#e0c5ff';ctx.shadowBlur=12;ctx.shadowColor='#b87cff';ctx.fill();ctx.shadowBlur=0;ctx.beginPath();ctx.arc(x,y,6,0,Math.PI*2);ctx.strokeStyle='#cfa0ff44';ctx.lineWidth=.6;ctx.stroke();}
   }
-  ctx.save();ctx.translate(cx,cy-r*.16);ctx.rotate(-.13);ctx.beginPath();ctx.ellipse(0,0,r*1.31,r*.235,0,0,Math.PI*2);ctx.strokeStyle='#aa71eeaa';ctx.lineWidth=1.25;ctx.shadowBlur=12;ctx.shadowColor='#9962e277';ctx.stroke();ctx.shadowBlur=0;
-  const angle=-.8;ctx.beginPath();ctx.arc(Math.cos(angle)*r*1.31,Math.sin(angle)*r*.235,3,0,Math.PI*2);ctx.fillStyle='#e2caff';ctx.fill();ctx.restore();
+  orbitSegment(r,cx,cy,0,Math.PI,true);
 }
 function resize(){const bounds=canvas.getBoundingClientRect();width=bounds.width;height=bounds.height;const dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);draw();}
 let last=0;
