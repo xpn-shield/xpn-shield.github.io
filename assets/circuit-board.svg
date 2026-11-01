@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" fill="none">
+<defs>
+ <linearGradient id="metal" x2="1" y2="1"><stop stop-color="#b9a9cd"/><stop offset=".38" stop-color="#41344f"/><stop offset=".65" stop-color="#81718f"/><stop offset="1" stop-color="#221b2c"/></linearGradient>
+ <linearGradient id="core" x2="1" y2="1"><stop stop-color="#282033"/><stop offset="1" stop-color="#0c0a12"/></linearGradient>
+ <g id="chip"><rect x="-58" y="-58" width="116" height="116" rx="8" stroke="url(#metal)" stroke-width="2" fill="#100d18"/><rect x="-46" y="-46" width="92" height="92" rx="4" fill="url(#core)" stroke="#9e7bc0" stroke-opacity=".5"/><rect x="-29" y="-29" width="58" height="58" rx="3" stroke="#a17cc8" stroke-opacity=".35"/><path d="M-20-10 0-22 20-10V12L0 24-20 12Z M0-22V0L20 12M0 0-20 12" stroke="#cbb7e0" stroke-opacity=".65"/><g stroke="#877295" stroke-width="3"><path d="M-40-59v-13m16 13v-13m16 13v-13m16 13v-13m16 13v-13m16 13v-13M-40 59v13m16-13v13m16-13v13m16-13v13m16-13v13m16-13v13M-59-40h-13m13 16h-13m13 16h-13m13 16h-13m13 16h-13m13 16h-13M59-40h13M59-24h13M59-8h13M59 8h13M59 24h13M59 40h13"/></g><circle cx="-37" cy="-37" r="2" fill="#bd96ed"/></g>
+</defs>
+<g stroke="#8f6cb1" stroke-opacity=".52" stroke-width="1">
+ <path d="M0 82h118l42 42h118l52 52h100M0 98h110l42 42h120l52 52h68M0 114h102l42 42h122l52 52h50M0 474h70l64-64v-57M0 490h78l72-72v-65M0 506h86l80-80v-73M0 522h94l88-88v-81M206 255h90l51-51h62M206 271h104l51-51h69M206 287h120l51-51h54M134 197v-38l-46-46V0M150 197v-44l-46-46V0M166 197v-50l-46-46V0M150 341v151l68 68v80M166 341v143l68 68v88M182 341v135l68 68v96"/>
+ <path d="M1200 90h-113l-52 52h-118l-44 44h-88M1200 106h-105l-52 52H925l-44 44h-58M1200 122h-97l-52 52H933l-44 44h-34M1200 420h-79l-53-53v-98M1200 436h-87l-61-61V269M1200 452h-95l-69-69V269M962 197h-85l-48 48h-77M962 213h-77l-48 48h-49M962 229h-69l-48 48h-33M1018 139V87l-56-56V0M1034 139V79l-48-48V0M1018 283v187l-68 68v102M1034 283v195l-68 68v94M1050 283v203l-68 68v86"/>
+ <path d="M310 640v-77l55-55h92M326 640v-69l47-47h70M890 640v-90l-46-46h-90M874 640v-82l-38-38h-48"/>
+</g>
+<g fill="#bba4d0"><circle cx="430" cy="176" r="3"/><circle cx="392" cy="192" r="2"/><circle cx="409" cy="204" r="3"/><circle cx="368" cy="208" r="2"/><circle cx="785" cy="186" r="3"/><circle cx="823" cy="202" r="2"/><circle cx="752" cy="245" r="3"/><circle cx="457" cy="508" r="3"/><circle cx="754" cy="504" r="3"/></g>
+<use href="#chip" x="150" y="269"/><use href="#chip" x="1034" y="211"/>
+<g fill="#15111e" stroke="#786087" stroke-opacity=".6"><rect x="32" y="212" width="25" height="66" rx="3"/><rect x="1141" y="235" width="25" height="66" rx="3"/><rect x="266" y="46" width="60" height="18" rx="3"/><rect x="842" y="54" width="60" height="18" rx="3"/></g>
+<g stroke="#b396c9" stroke-opacity=".7"><path d="M27 224h35m-35 12h35m-35 12h35m-35 12h35M1136 247h35m-35 12h35m-35 12h35m-35 12h35"/></g>
+</svg>
