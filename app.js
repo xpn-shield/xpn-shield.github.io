@@ -44,7 +44,7 @@ function curve(points, radius, cx, cy, color, lineWidth = .55) {
 }
 function orbitSegment(radius, cx, cy, start, end, marker = false) {
   ctx.save();
-  ctx.translate(cx, cy - radius * .16);
+  ctx.translate(cx, cy - radius * .38);
   ctx.rotate(-.13);
   ctx.beginPath();
   ctx.ellipse(0, 0, radius * 1.31, radius * .235, 0, start, end);
@@ -69,7 +69,6 @@ function draw() {
   const glow = ctx.createRadialGradient(cx,cy,r*.1,cx,cy,r*1.25);
   glow.addColorStop(0,'#59348b55');glow.addColorStop(.68,'#58358132');glow.addColorStop(1,'#38214e00');
   ctx.fillStyle=glow;ctx.fillRect(0,0,width,height);
-  orbitSegment(r,cx,cy,Math.PI,Math.PI*2);
   const sphere = ctx.createRadialGradient(cx-r*.18,cy-r*.62,r*.06,cx,cy,r);
   sphere.addColorStop(0,'#30203e');sphere.addColorStop(.55,'#21172f');sphere.addColorStop(1,'#0e0d16');
   ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fillStyle=sphere;ctx.fill();
