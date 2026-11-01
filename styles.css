@@ -110,7 +110,7 @@ body{background-color:#07070b;background-image:radial-gradient(ellipse at 15% 5%
  .hero-actions{flex-direction:column;gap:12px;margin:0 28px}
  .hero-actions .button{width:100%;max-width:270px;min-width:0;min-height:48px;justify-content:center}
  .cta-caption{margin-top:12px}
- .hero-grid{background-position:center 265px;opacity:.6}
+ .hero-grid{position:relative;inset:auto;z-index:0;height:110px;margin-top:14px;margin-bottom:-55px;background-position:center -20px;opacity:.9;mask-image:none}
  .globe-scene{width:124%;left:-12%;height:clamp(240px,64vw,285px);margin-top:0}
  .globe-halo{filter:none;opacity:.7}
  .connection-tag{backdrop-filter:none;font-size:7.5px;padding:8px;gap:6px;box-shadow:inset 3px 0 #a879c9,0 5px 16px #0005}

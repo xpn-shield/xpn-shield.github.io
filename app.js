@@ -176,7 +176,7 @@ function drawFlights(){
 }
 function draw(){
   if(!width||!height)return;
-  ctx.clearRect(0,0,width,height);ctx.drawImage(surface,0,0,width,height);drawFlights();ctx.drawImage(orbit,0,0,width,height);
+  ctx.clearRect(0,0,width,height);ctx.drawImage(surface,0,0,width,height);if(!compact)drawFlights();ctx.drawImage(orbit,0,0,width,height);
 }
 function resize(){
   const bounds=canvas.getBoundingClientRect();compact=mobile.matches;
