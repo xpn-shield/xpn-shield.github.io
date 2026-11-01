@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256"
+  viewBox="0 0 256 256" preserveAspectRatio="xMidYMid meet" fill="none" role="img" focusable="false"
+  aria-labelledby="xpn-app-title" aria-describedby="xpn-app-desc">
+  <title id="xpn-app-title">XPN</title>
+  <desc id="xpn-app-desc">Знак XPN с платиновыми гранями и фиолетовым отражением на тёмном фоне.</desc>
+  <style>@media (max-width:64px){.fine-detail{display:none}}</style>
+  <defs>
+    <linearGradient id="xpn-app-case" x1="26" y1="10" x2="212" y2="248" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6f578d"/>
+      <stop offset=".18" stop-color="#372b45"/>
+      <stop offset=".46" stop-color="#181121"/>
+      <stop offset=".74" stop-color="#120d18"/>
+      <stop offset="1" stop-color="#534169"/>
+    </linearGradient>
+    <linearGradient id="xpn-app-rim" x1="28" y1="8" x2="220" y2="248" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#c6b7d8"/>
+      <stop offset=".17" stop-color="#6b5388"/>
+      <stop offset=".46" stop-color="#292035"/>
+      <stop offset=".75" stop-color="#201929"/>
+      <stop offset="1" stop-color="#7b609c"/>
+    </linearGradient>
+    <linearGradient id="xpn-app-surface" x1="72" y1="12" x2="176" y2="248" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#221b2b"/>
+      <stop offset=".35" stop-color="#140e1b"/>
+      <stop offset=".7" stop-color="#0f0a14"/>
+      <stop offset="1" stop-color="#0f0b14"/>
+    </linearGradient>
+    <radialGradient id="xpn-app-light" cx="64" cy="20" r="168" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#e8e2ef" stop-opacity=".065"/>
+      <stop offset=".6" stop-color="#e1d9ea" stop-opacity=".018"/>
+      <stop offset="1" stop-color="#e1d9ea" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="xpn-app-ambient" cx="170" cy="208" r="106" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#917aad" stop-opacity=".07"/>
+      <stop offset=".55" stop-color="#917aad" stop-opacity=".025"/>
+      <stop offset="1" stop-color="#917aad" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="xpn-app-seat" x1="128" y1="12" x2="128" y2="244" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#050407" stop-opacity=".72"/>
+      <stop offset=".5" stop-color="#050407" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#876da6" stop-opacity=".16"/>
+    </linearGradient>
+    <linearGradient id="xpn-app-depth" x1="30" y1="14" x2="40" y2="61" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#342842"/>
+      <stop offset=".46" stop-color="#31263e"/>
+      <stop offset=".82" stop-color="#4c3b60"/>
+      <stop offset="1" stop-color="#7a5f9c"/>
+    </linearGradient>
+    <linearGradient id="xpn-app-metal" x1="23" y1="12" x2="45" y2="60" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ebe6f1"/>
+      <stop offset=".24" stop-color="#d5cae3"/>
+      <stop offset=".43" stop-color="#beadd3"/>
+      <stop offset=".6" stop-color="#e2dbeb"/>
+      <stop offset=".79" stop-color="#c1b0d5"/>
+      <stop offset="1" stop-color="#a491bc"/>
+    </linearGradient>
+    <radialGradient id="xpn-app-reflection" cx="17" cy="14" r="41" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fbfafd" stop-opacity=".24"/>
+      <stop offset=".58" stop-color="#fbfafd" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#fbfafd" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="xpn-app-bevel-lit" x1="16" y1="14" x2="46" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#faf9fc"/>
+      <stop offset=".44" stop-color="#e7e0ef"/>
+      <stop offset="1" stop-color="#a997c0"/>
+    </linearGradient>
+    <linearGradient id="xpn-app-bevel-mid" x1="20" y1="14" x2="46" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9b85b5"/>
+      <stop offset=".5" stop-color="#8065a0"/>
+      <stop offset="1" stop-color="#cfc2de"/>
+    </linearGradient>
+    <linearGradient id="xpn-app-bevel-dark" x1="20" y1="14" x2="46" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#443557"/>
+      <stop offset=".45" stop-color="#5e4977"/>
+      <stop offset="1" stop-color="#725991"/>
+    </linearGradient>
+    <linearGradient id="xpn-app-engraving-floor" x1="20" y1="19" x2="47" y2="53" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6c548a"/>
+      <stop offset=".45" stop-color="#453657"/>
+      <stop offset="1" stop-color="#634d7d"/>
+    </linearGradient>
+    <filter id="xpn-app-shadow" x="0" y="4" width="68" height="68"
+      filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="1.6"/>
+    </filter>
+    <path id="xpn-app-x" d="M10 14H22L34 29L46 14H58L40 36L58 58H46L34 43L22 58H10L28 36Z"/>
+    <path id="xpn-app-face" d="M11.519 14.72H21.654L34 30.153L46.346 14.72H56.481L39.07 36L56.481 57.28H46.346L34 41.847L21.654 57.28H11.519L28.93 36Z"/>
+    <path id="xpn-app-grooves" d="
+      M20 19.5L30.8 33.2M48 19.5L37.2 33.2
+      M20 52.5L30.8 38.8M48 52.5L37.2 38.8"/>
+    <path id="xpn-app-fine-grooves" d="
+      M18.4 20.1L28.9 33.2M49.6 20.1L39.1 33.2
+      M18.4 51.9L28.9 38.8M49.6 51.9L39.1 38.8"/>
+    <clipPath id="xpn-app-engraving-clip" clipPathUnits="userSpaceOnUse">
+      <use href="#xpn-app-face"/>
+    </clipPath>
+  </defs>
+  <rect x="8" y="8" width="240" height="240" rx="54" fill="url(#xpn-app-case)"/>
+  <rect x="8.6" y="8.6" width="238.8" height="238.8" rx="53.4"
+    stroke="url(#xpn-app-rim)" stroke-width=".85"/>
+  <rect x="11.5" y="11.5" width="233" height="233" rx="50.5" fill="url(#xpn-app-surface)"/>
+  <rect x="11.5" y="11.5" width="233" height="233" rx="50.5" fill="url(#xpn-app-light)"/>
+  <rect x="11.5" y="11.5" width="233" height="233" rx="50.5" fill="url(#xpn-app-ambient)"/>
+  <rect x="11.5" y="11.5" width="233" height="233" rx="50.5"
+    stroke="url(#xpn-app-seat)" stroke-width=".8"/>
+  <g transform="translate(36.2 29.2) scale(2.7)" stroke-linejoin="round">
+    <use href="#xpn-app-x" transform="translate(.35 2.2)" fill="#050307"
+      opacity=".8" filter="url(#xpn-app-shadow)"/>
+    <use href="#xpn-app-x" transform="translate(0 .9)" fill="url(#xpn-app-depth)"/>
+    <use href="#xpn-app-x" fill="url(#xpn-app-metal)"/>
+    <g fill="url(#xpn-app-bevel-lit)">
+      <path d="M10 14H22L21.654 14.72H11.519Z"/>
+      <path d="M34 29L46 14L46.346 14.72L34 30.153Z"/>
+      <path d="M46 14H58L56.481 14.72H46.346Z"/>
+      <path d="M10 58L28 36H28.93L11.519 57.28Z"/>
+    </g>
+    <g fill="url(#xpn-app-bevel-mid)">
+      <path d="M22 14L34 29V30.153L21.654 14.72Z"/>
+      <path d="M40 36L58 58L56.481 57.28L39.07 36Z"/>
+      <path d="M46 58L34 43V41.847L46.346 57.28Z"/>
+      <path d="M28 36L10 14L11.519 14.72L28.93 36Z"/>
+    </g>
+    <g fill="url(#xpn-app-bevel-dark)">
+      <path d="M58 14L40 36H39.07L56.481 14.72Z"/>
+      <path d="M58 58H46L46.346 57.28H56.481Z"/>
+      <path d="M34 43L22 58L21.654 57.28L34 41.847Z"/>
+      <path d="M22 58H10L11.519 57.28H21.654Z"/>
+    </g>
+    <use href="#xpn-app-face" fill="url(#xpn-app-metal)"/>
+    <use href="#xpn-app-face" fill="url(#xpn-app-reflection)"/>
+    <g class="fine-detail" clip-path="url(#xpn-app-engraving-clip)" stroke-linecap="round">
+      <use href="#xpn-app-grooves" transform="translate(.1 .14)"
+        stroke="#f8f7fa" stroke-width=".6" opacity=".66"/>
+      <use href="#xpn-app-grooves"
+        stroke="#795e99" stroke-width=".56" opacity=".48"/>
+      <use href="#xpn-app-grooves" transform="translate(-.02 -.05)"
+        stroke="#332841" stroke-width=".34" opacity=".52"/>
+      <use href="#xpn-app-grooves"
+        stroke="url(#xpn-app-engraving-floor)" stroke-width=".27" opacity=".82"/>
+      <use href="#xpn-app-fine-grooves" transform="translate(.07 .1)"
+        stroke="#f8f7fa" stroke-width=".38" opacity=".46"/>
+      <use href="#xpn-app-fine-grooves"
+        stroke="url(#xpn-app-engraving-floor)" stroke-width=".26" opacity=".5"/>
+    </g>
+  </g>
+</svg>

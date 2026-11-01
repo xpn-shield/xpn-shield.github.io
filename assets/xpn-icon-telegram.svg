@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256"
+  viewBox="0 0 256 256" preserveAspectRatio="xMidYMid meet" fill="none" role="img" focusable="false"
+  aria-labelledby="xpn-tg-title" aria-describedby="xpn-tg-desc">
+  <title id="xpn-tg-title">XPN</title>
+  <desc id="xpn-tg-desc">Знак XPN с платиновыми гранями и фиолетовым отражением на тёмном фоне.</desc>
+  <style>@media (max-width:64px){.fine-detail{display:none}}</style>
+  <defs>
+    <linearGradient id="xpn-tg-bg" x1="72" y1="12" x2="176" y2="248" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#221b2b"/>
+      <stop offset=".35" stop-color="#140e1b"/>
+      <stop offset=".7" stop-color="#0f0a14"/>
+      <stop offset="1" stop-color="#0f0b14"/>
+    </linearGradient>
+    <radialGradient id="xpn-tg-sheen" cx="64" cy="20" r="168" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#e8e2ef" stop-opacity=".065"/>
+      <stop offset=".6" stop-color="#e1d9ea" stop-opacity=".018"/>
+      <stop offset="1" stop-color="#e1d9ea" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="xpn-tg-ambient" cx="170" cy="208" r="106" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#917aad" stop-opacity=".07"/>
+      <stop offset=".55" stop-color="#917aad" stop-opacity=".025"/>
+      <stop offset="1" stop-color="#917aad" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="xpn-tg-metal" x1="23" y1="12" x2="45" y2="60" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ebe6f1"/>
+      <stop offset=".24" stop-color="#d5cae3"/>
+      <stop offset=".43" stop-color="#beadd3"/>
+      <stop offset=".6" stop-color="#e2dbeb"/>
+      <stop offset=".79" stop-color="#c1b0d5"/>
+      <stop offset="1" stop-color="#a491bc"/>
+    </linearGradient>
+    <linearGradient id="xpn-tg-depth" x1="30" y1="14" x2="40" y2="61" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#31263e"/>
+      <stop offset=".5" stop-color="#2b2237"/>
+      <stop offset=".82" stop-color="#524069"/>
+      <stop offset="1" stop-color="#8368a3"/>
+    </linearGradient>
+    <linearGradient id="xpn-tg-light-face" x1="16" y1="14" x2="46" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#faf9fc"/>
+      <stop offset=".45" stop-color="#e8e2f0"/>
+      <stop offset="1" stop-color="#ae9dc3"/>
+    </linearGradient>
+    <linearGradient id="xpn-tg-mid-face" x1="20" y1="14" x2="46" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9f8ab8"/>
+      <stop offset=".5" stop-color="#8166a2"/>
+      <stop offset="1" stop-color="#d2c6e0"/>
+    </linearGradient>
+    <linearGradient id="xpn-tg-dark-face" x1="20" y1="14" x2="46" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#463659"/>
+      <stop offset=".5" stop-color="#644e7e"/>
+      <stop offset="1" stop-color="#7a5f9c"/>
+    </linearGradient>
+    <radialGradient id="xpn-tg-reflection" cx="17" cy="14" r="41" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fbfafc" stop-opacity=".3"/>
+      <stop offset=".6" stop-color="#fbfafc" stop-opacity=".035"/>
+      <stop offset="1" stop-color="#fbfafc" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="xpn-tg-engraving" x1="20" y1="19" x2="47" y2="53" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7c619e"/>
+      <stop offset=".45" stop-color="#453657"/>
+      <stop offset="1" stop-color="#6c5489"/>
+    </linearGradient>
+    <filter id="xpn-tg-shadow" x="0" y="4" width="68" height="68"
+      filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="1.55"/>
+    </filter>
+    <path id="xpn-tg-x" d="M10 14H22L34 29L46 14H58L40 36L58 58H46L34 43L22 58H10L28 36Z"/>
+    <path id="xpn-tg-face" d="M11.519 14.72H21.654L34 30.153L46.346 14.72H56.481L39.07 36L56.481 57.28H46.346L34 41.847L21.654 57.28H11.519L28.93 36Z"/>
+    <path id="xpn-tg-grooves" d="
+      M20 19.5L30.8 33.2M48 19.5L37.2 33.2
+      M20 52.5L30.8 38.8M48 52.5L37.2 38.8"/>
+    <path id="xpn-tg-fine-grooves" d="
+      M18.4 20.1L28.9 33.2M49.6 20.1L39.1 33.2
+      M18.4 51.9L28.9 38.8M49.6 51.9L39.1 38.8"/>
+    <clipPath id="xpn-tg-engraving-clip" clipPathUnits="userSpaceOnUse">
+      <use href="#xpn-tg-face"/>
+    </clipPath>
+  </defs>
+  <rect width="256" height="256" fill="url(#xpn-tg-bg)"/>
+  <rect width="256" height="256" fill="url(#xpn-tg-sheen)"/>
+  <rect width="256" height="256" fill="url(#xpn-tg-ambient)"/>
+  <g id="xpn-tg-mark" transform="translate(36.2 29.2) scale(2.7)" stroke-linejoin="round">
+    <use href="#xpn-tg-x" transform="translate(.35 2.2)" fill="#050307"
+      opacity=".78" filter="url(#xpn-tg-shadow)"/>
+    <use href="#xpn-tg-x" transform="translate(0 .9)" fill="url(#xpn-tg-depth)"/>
+    <use href="#xpn-tg-x" fill="url(#xpn-tg-metal)"/>
+    <g fill="url(#xpn-tg-light-face)">
+      <path d="M10 14H22L21.654 14.72H11.519Z"/>
+      <path d="M34 29L46 14L46.346 14.72L34 30.153Z"/>
+      <path d="M46 14H58L56.481 14.72H46.346Z"/>
+      <path d="M10 58L28 36H28.93L11.519 57.28Z"/>
+    </g>
+    <g fill="url(#xpn-tg-mid-face)">
+      <path d="M22 14L34 29V30.153L21.654 14.72Z"/>
+      <path d="M40 36L58 58L56.481 57.28L39.07 36Z"/>
+      <path d="M46 58L34 43V41.847L46.346 57.28Z"/>
+      <path d="M28 36L10 14L11.519 14.72L28.93 36Z"/>
+    </g>
+    <g fill="url(#xpn-tg-dark-face)">
+      <path d="M58 14L40 36H39.07L56.481 14.72Z"/>
+      <path d="M58 58H46L46.346 57.28H56.481Z"/>
+      <path d="M34 43L22 58L21.654 57.28L34 41.847Z"/>
+      <path d="M22 58H10L11.519 57.28H21.654Z"/>
+    </g>
+    <use href="#xpn-tg-face" fill="url(#xpn-tg-metal)"/>
+    <use href="#xpn-tg-face" fill="url(#xpn-tg-reflection)"/>
+    <g class="fine-detail" clip-path="url(#xpn-tg-engraving-clip)" stroke-linecap="round">
+      <use href="#xpn-tg-grooves" transform="translate(.1 .14)"
+        stroke="#fbfafc" stroke-width=".6" opacity=".62"/>
+      <use href="#xpn-tg-grooves"
+        stroke="#785d98" stroke-width=".56" opacity=".5"/>
+      <use href="#xpn-tg-grooves" transform="translate(-.02 -.05)"
+        stroke="#342842" stroke-width=".34" opacity=".55"/>
+      <use href="#xpn-tg-grooves"
+        stroke="url(#xpn-tg-engraving)" stroke-width=".27" opacity=".84"/>
+      <use href="#xpn-tg-fine-grooves" transform="translate(.07 .1)"
+        stroke="#f8f7fa" stroke-width=".38" opacity=".42"/>
+      <use href="#xpn-tg-fine-grooves"
+        stroke="url(#xpn-tg-engraving)" stroke-width=".26" opacity=".52"/>
+    </g>
+  </g>
+</svg>
