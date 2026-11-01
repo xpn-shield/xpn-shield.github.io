@@ -12,14 +12,6 @@
   <defs>
     <linearGradient id="metal" x1="-58" y1="-58" x2="58" y2="58" gradientUnits="userSpaceOnUse"><stop stop-color="#c6b5d8"/><stop offset=".38" stop-color="#41344f"/><stop offset=".65" stop-color="#81718f"/><stop offset="1" stop-color="#221b2c"/></linearGradient>
     <linearGradient id="core" x1="-46" y1="-46" x2="46" y2="46" gradientUnits="userSpaceOnUse"><stop stop-color="#282033"/><stop offset="1" stop-color="#0c0a12"/></linearGradient>
-<filter id="glow-0" filterUnits="userSpaceOnUse" x="-8" y="108" width="126" height="97" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="2"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    <filter id="glow-1" filterUnits="userSpaceOnUse" x="-8" y="221" width="94" height="16" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="2"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    <filter id="glow-2" filterUnits="userSpaceOnUse" x="102" y="333" width="106" height="373" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="2"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    <filter id="glow-7" filterUnits="userSpaceOnUse" x="214" y="197" width="248" height="56" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="2"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    <filter id="glow-8" filterUnits="userSpaceOnUse" x="-8" y="76" width="158" height="129" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="2"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    <filter id="glow-13" filterUnits="userSpaceOnUse" x="-8" y="269" width="94" height="16" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="2"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    <filter id="glow-18" filterUnits="userSpaceOnUse" x="166" y="333" width="106" height="373" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="2"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    <filter id="glow-23" filterUnits="userSpaceOnUse" x="214" y="261" width="248" height="56" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="2"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
     <path id="trace-0" d="M0 116H42L110 184V197" pathLength="100"/>
     <path id="trace-1" d="M0 229H78" pathLength="100"/>
     <path id="trace-2" d="M110 341V470l90 90V698" pathLength="100"/>
@@ -81,14 +73,14 @@
     <use href="#trace-23"/>
       </g>
       <g>
-    <use class="current" filter="url(#glow-0)" href="#trace-0" style="animation-duration:5.0s;animation-delay:-0.00s"/>
-    <use class="current" filter="url(#glow-1)" href="#trace-1" style="animation-duration:5.6s;animation-delay:-0.43s"/>
-    <use class="current" filter="url(#glow-2)" href="#trace-2" style="animation-duration:6.2s;animation-delay:-0.86s"/>
-    <use class="current" filter="url(#glow-7)" href="#trace-7" style="animation-duration:6.8s;animation-delay:-3.01s"/>
-    <use class="current" filter="url(#glow-8)" href="#trace-8" style="animation-duration:5.0s;animation-delay:-3.44s"/>
-    <use class="current" filter="url(#glow-13)" href="#trace-13" style="animation-duration:5.6s;animation-delay:-5.59s"/>
-    <use class="current" filter="url(#glow-18)" href="#trace-18" style="animation-duration:6.2s;animation-delay:-7.74s"/>
-    <use class="current" filter="url(#glow-23)" href="#trace-23" style="animation-duration:6.8s;animation-delay:-9.89s"/>
+    <use class="current" href="#trace-0" style="animation-duration:5.0s;animation-delay:-0.00s"/>
+    <use class="current" href="#trace-1" style="animation-duration:5.6s;animation-delay:-0.43s"/>
+    <use class="current" href="#trace-2" style="animation-duration:6.2s;animation-delay:-0.86s"/>
+    <use class="current" href="#trace-7" style="animation-duration:6.8s;animation-delay:-3.01s"/>
+    <use class="current" href="#trace-8" style="animation-duration:5.0s;animation-delay:-3.44s"/>
+    <use class="current" href="#trace-13" style="animation-duration:5.6s;animation-delay:-5.59s"/>
+    <use class="current" href="#trace-18" style="animation-duration:6.2s;animation-delay:-7.74s"/>
+    <use class="current" href="#trace-23" style="animation-duration:6.8s;animation-delay:-9.89s"/>
       </g>
       <g stroke="#b99bcc" stroke-opacity=".7" fill="#15101e">
     <circle cx="454" cy="189" r="2.6"/>

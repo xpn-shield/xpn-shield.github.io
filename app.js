@@ -11,10 +11,6 @@ navigation.addEventListener('click', e => { if (e.target.closest('a')) closeMenu
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
 window.matchMedia('(min-width:761px)').addEventListener('change', e => { if (e.matches) closeMenu(); });
 
-// An original vector-drawn network globe with themed vector brand assets.
-const canvas = document.querySelector('#globe');
-const ctx = canvas.getContext('2d');
-const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const continents = [
   [[-168,67],[-150,71],[-133,68],[-127,57],[-123,49],[-125,42],[-119,34],[-108,30],[-100,22],[-90,18],[-85,10],[-78,9],[-80,22],[-82,27],[-80,33],[-72,43],[-60,49],[-55,56],[-68,60],[-80,63],[-96,70],[-116,73],[-140,70],[-168,67]],
   [[-80,10],[-70,11],[-62,8],[-50,0],[-35,-7],[-40,-20],[-50,-29],[-54,-39],[-68,-55],[-74,-49],[-72,-35],[-77,-18],[-81,-5],[-80,10]],
@@ -26,44 +22,6 @@ const continents = [
   [[-7,50],[-4,57],[-6,59],[1,58],[1,51],[-7,50]],
   [[130,32],[136,35],[141,41],[145,44],[143,37],[137,33],[130,32]]
 ];
-let width = 0, height = 0, phase = 0, flightTime = 0, raf = 0, visible = true;
-const rad = Math.PI / 180;
-function project(lon, lat, radius, cx, cy) {
-  const l = (lon - 26 + phase) * rad, p = lat * rad, tilt = 15 * rad;
-  const x = Math.cos(p) * Math.sin(l), y = Math.sin(p), z = Math.cos(p) * Math.cos(l);
-  return [cx + radius * x, cy - radius * (y * Math.cos(tilt) - z * Math.sin(tilt)), y * Math.sin(tilt) + z * Math.cos(tilt)];
-}
-function curve(points, radius, cx, cy, color, lineWidth = .55) {
-  ctx.beginPath(); let started = false;
-  for (const point of points) {
-    const [x,y,z] = project(point[0], point[1], radius, cx, cy);
-    if (z < 0) { started = false; continue; }
-    if (!started) { ctx.moveTo(x,y); started = true; } else ctx.lineTo(x,y);
-  }
-  ctx.strokeStyle = color; ctx.lineWidth = lineWidth; ctx.stroke();
-}
-function orbitSegment(radius, cx, cy, start, end, marker = false) {
-  ctx.save();
-  ctx.translate(cx, cy - radius * .38);
-  ctx.rotate(-.13);
-  ctx.beginPath();
-  ctx.ellipse(0, 0, radius * 1.31, radius * .235, 0, start, end);
-  ctx.strokeStyle = '#aa71eeaa';
-  ctx.lineWidth = 1.25;
-  ctx.shadowBlur = 12;
-  ctx.shadowColor = '#9962e277';
-  ctx.stroke();
-  ctx.shadowBlur = 0;
-  if (marker) {
-    const angle = .8;
-    ctx.beginPath();
-    ctx.arc(Math.cos(angle) * radius * 1.31, Math.sin(angle) * radius * .235, 3, 0, Math.PI * 2);
-    ctx.fillStyle = '#e2caff';
-    ctx.fill();
-  }
-  ctx.restore();
-}
-// Elevated great-circle routes: the packets stay attached to the rotating globe.
 const networkNodes = [
   [2,49],[31,30],[37,55],[72,19],[103,31],[-74,41],[18,-33],[139,36],[13,52],
   [-122,38],[-118,34],[-87,42],[-99,19],[-46,-23],[-3,40],[-.1,51.5],
@@ -89,82 +47,179 @@ const flightRoutes = [
   {from:[127,37],to:[139,36],delay:3.8,duration:2.2,lift:.42}
 
 ];
-function flightPoint(from, to, t, lift, radius, cx, cy) {
-  const dot = Math.max(-1,Math.min(1,from.reduce((sum,n,i)=>sum+n*to[i],0)));
-  const angle = Math.acos(dot), sine = Math.sin(angle);
-  const a = sine > .001 ? Math.sin((1-t)*angle)/sine : 1-t;
-  const b = sine > .001 ? Math.sin(t*angle)/sine : t;
-  const scale = radius*(1+Math.sin(Math.PI*t)*lift);
-  return [cx+(from[0]*a+to[0]*b)*scale,cy-(from[1]*a+to[1]*b)*scale];
+// Geometry is prepared once; only a small overlay is repainted at 30 fps.
+const canvas = document.querySelector('#globe');
+const ctx = canvas.getContext('2d');
+const hero = document.querySelector('.hero');
+const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const mobile = window.matchMedia('(max-width:760px)');
+const base = document.createElement('canvas');
+const surface = document.createElement('canvas');
+const orbit = document.createElement('canvas');
+const baseCtx = base.getContext('2d');
+const surfaceCtx = surface.getContext('2d');
+const orbitCtx = orbit.getContext('2d');
+const rad = Math.PI / 180, tiltSin = Math.sin(15*rad), tiltCos = Math.cos(15*rad);
+let width=0,height=0,radius=0,cx=0,cy=0,phase=0,spinSin=0,spinCos=1;
+let compact=mobile.matches,inViewport=false,heroInViewport=false,scrolling=false,raf=0,lastTick=0,surfaceElapsed=0,flightTime=0,scrollTimer=0;
+function unit([lon,lat]) {
+  const l=(lon-26)*rad,p=lat*rad,c=Math.cos(p);
+  return [c*Math.sin(l),Math.sin(p),c*Math.cos(l)];
 }
-function landingRing(point, progress) {
-  if (progress<0 || progress>1) return;
-  ctx.beginPath();ctx.arc(point[0],point[1],2+progress*13,0,Math.PI*2);
-  ctx.strokeStyle=`rgba(211,174,255,${(1-progress)*.7})`;ctx.lineWidth=1;ctx.stroke();
-  ctx.beginPath();ctx.arc(point[0],point[1],2.4,0,Math.PI*2);
-  ctx.fillStyle=`rgba(240,222,255,${1-progress})`;ctx.fill();
+function project(point) {
+  const x=point[0]*spinCos+point[2]*spinSin,z=point[2]*spinCos-point[0]*spinSin;
+  return [cx+radius*x,cy-radius*(point[1]*tiltCos-z*tiltSin),point[1]*tiltSin+z*tiltCos];
 }
-function drawFlights(radius, cx, cy) {
-  ctx.save();ctx.lineCap='round';ctx.lineJoin='round';
-  for (const route of flightRoutes) {
-    const elapsed = motion.matches ? route.duration*.55 : (flightTime+route.delay)%6.6;
-    if (elapsed>route.duration+.7) continue;
-    const a=project(...route.from,radius,cx,cy),b=project(...route.to,radius,cx,cy);
-    // Rear destinations never show through the surface.
-    if(a[2]<.12 || b[2]<.12) continue;
-    const from=[(a[0]-cx)/radius,(cy-a[1])/radius,a[2]];
-    const to=[(b[0]-cx)/radius,(cy-b[1])/radius,b[2]];
-    const progress=Math.min(1,elapsed/route.duration);
-    const fade=Math.min(1,elapsed/.3)*Math.max(0,1-(elapsed-route.duration)/.7);
-    ctx.beginPath();
-    for(let i=0;i<=48;i++){
-      const p=flightPoint(from,to,progress*i/48,route.lift,radius,cx,cy);
-      if(i===0)ctx.moveTo(...p);else ctx.lineTo(...p);
-    }
-    ctx.strokeStyle=`rgba(188,137,246,${.3*fade})`;ctx.lineWidth=1;ctx.stroke();
-    if(elapsed<route.duration){
-      const tail=Math.max(0,progress-.16);
-      for(let i=0;i<18;i++){
-        const t=tail+(progress-tail)*i/18,next=tail+(progress-tail)*(i+1)/18;
-        ctx.beginPath();ctx.moveTo(...flightPoint(from,to,t,route.lift,radius,cx,cy));
-        ctx.lineTo(...flightPoint(from,to,next,route.lift,radius,cx,cy));
-        ctx.strokeStyle=`rgba(205,161,255,${(i+1)/18*.9})`;ctx.lineWidth=1.7;ctx.stroke();
-      }
-      const head=flightPoint(from,to,progress,route.lift,radius,cx,cy);
-      ctx.shadowColor='#c183ff';ctx.shadowBlur=12;
-      ctx.beginPath();ctx.arc(...head,2.5,0,Math.PI*2);ctx.fillStyle='#f5e9ff';ctx.fill();ctx.shadowBlur=0;
-      if(elapsed<.5)landingRing(a,elapsed/.5);
-    }else landingRing(b,(elapsed-route.duration)/.7);
+function buildGrid(spacing,step) {
+  const curves=[];
+  for(let lat=-90+spacing;lat<90;lat+=spacing){const points=[];for(let lon=-180;lon<=180;lon+=step)points.push(unit([lon,lat]));curves.push(points);}
+  for(let lon=-180;lon<180;lon+=spacing){const points=[];for(let lat=-90;lat<=90;lat+=step)points.push(unit([lon,lat]));curves.push(points);}
+  return curves;
+}
+const grids={small:buildGrid(30,5),large:buildGrid(15,3)};
+const outlines=continents.map(polygon=>{
+  const points=[];
+  for(let i=0;i<polygon.length-1;i++){
+    const a=polygon[i],b=polygon[i+1],n=Math.ceil(Math.max(Math.abs(a[0]-b[0]),Math.abs(a[1]-b[1]))/2);
+    for(let j=0;j<n;j++)points.push(unit([a[0]+(b[0]-a[0])*j/n,a[1]+(b[1]-a[1])*j/n]));
   }
-  ctx.restore();
+  points.push(unit(polygon.at(-1)));return points;
+});
+const nodes=networkNodes.map(unit);
+for(const route of flightRoutes){
+  route.start=unit(route.from);route.end=unit(route.to);
+  const angle=Math.acos(Math.max(-1,Math.min(1,route.start.reduce((s,n,i)=>s+n*route.end[i],0)))),sine=Math.sin(angle);
+  route.points=Array.from({length:65},(_,i)=>{
+    const t=i/64,a=sine>.001?Math.sin((1-t)*angle)/sine:1-t,b=sine>.001?Math.sin(t*angle)/sine:t;
+    const scale=1+Math.sin(Math.PI*t)*route.lift;
+    return route.start.map((n,j)=>(n*a+route.end[j]*b)*scale);
+  });
 }
-function draw() {
-  ctx.clearRect(0,0,width,height);
-  const r = width * .338, cx = width / 2, cy = height * .99;
-  const glow = ctx.createRadialGradient(cx,cy,r*.1,cx,cy,r*1.25);
+function flightPoint(route,t){
+  const f=Math.max(0,Math.min(64,t*64)),i=Math.min(63,Math.floor(f)),mix=f-i;
+  return project(route.points[i].map((n,j)=>n+(route.points[i+1][j]-n)*mix));
+}
+function strokeCurve(context,points,color,lineWidth){
+  context.beginPath();let started=false;
+  for(const point of points){
+    const x=point[0]*spinCos+point[2]*spinSin,z=point[2]*spinCos-point[0]*spinSin;
+    if(point[1]*tiltSin+z*tiltCos<0){started=false;continue;}
+    const sx=cx+radius*x,sy=cy-radius*(point[1]*tiltCos-z*tiltSin);
+    if(!started){context.moveTo(sx,sy);started=true;}else context.lineTo(sx,sy);
+  }
+  context.strokeStyle=color;context.lineWidth=lineWidth;context.stroke();
+}
+function buildLayers(){
+  baseCtx.clearRect(0,0,width,height);
+  const glow=baseCtx.createRadialGradient(cx,cy,radius*.1,cx,cy,radius*1.25);
   glow.addColorStop(0,'#59348b55');glow.addColorStop(.68,'#58358132');glow.addColorStop(1,'#38214e00');
-  ctx.fillStyle=glow;ctx.fillRect(0,0,width,height);
-  const sphere = ctx.createRadialGradient(cx-r*.18,cy-r*.62,r*.06,cx,cy,r);
+  baseCtx.fillStyle=glow;baseCtx.fillRect(0,0,width,height);
+  const sphere=baseCtx.createRadialGradient(cx-radius*.18,cy-radius*.62,radius*.06,cx,cy,radius);
   sphere.addColorStop(0,'#30203e');sphere.addColorStop(.55,'#21172f');sphere.addColorStop(1,'#0e0d16');
-  ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fillStyle=sphere;ctx.fill();
-  ctx.strokeStyle='#b28ace28';ctx.lineWidth=.8;ctx.stroke();
-  for (let lat=-75;lat<=75;lat+=15) { const points=[];for(let lon=-180;lon<=180;lon+=2) points.push([lon,lat]);curve(points,r,cx,cy,'#b58de01b'); }
-  for (let lon=-180;lon<180;lon+=15) { const points=[];for(let lat=-90;lat<=90;lat+=2) points.push([lon,lat]);curve(points,r,cx,cy,'#b58de01b'); }
-  for (const polygon of continents) {
-    const points=[];for(let i=0;i<polygon.length-1;i++){const a=polygon[i],b=polygon[i+1];const n=Math.ceil(Math.max(Math.abs(a[0]-b[0]),Math.abs(a[1]-b[1]))/2);for(let j=0;j<n;j++)points.push([a[0]+(b[0]-a[0])*j/n,a[1]+(b[1]-a[1])*j/n]);}points.push(polygon.at(-1));
-    ctx.shadowBlur=5;ctx.shadowColor='#af70ee65';curve(points,r,cx,cy,'#bf8effb5',.85);ctx.shadowBlur=0;
-  }
-  for (const [lon,lat] of networkNodes) {
-    const [x,y,z]=project(lon,lat,r,cx,cy);if(z>.12){ctx.beginPath();ctx.arc(x,y,2,0,Math.PI*2);ctx.fillStyle='#e0c5ff';ctx.shadowBlur=12;ctx.shadowColor='#b87cff';ctx.fill();ctx.shadowBlur=0;ctx.beginPath();ctx.arc(x,y,6,0,Math.PI*2);ctx.strokeStyle='#cfa0ff44';ctx.lineWidth=.6;ctx.stroke();}
-  }
-  drawFlights(r,cx,cy);
-  orbitSegment(r,cx,cy,0,Math.PI,true);
+  baseCtx.beginPath();baseCtx.arc(cx,cy,radius,0,Math.PI*2);baseCtx.fillStyle=sphere;baseCtx.fill();
+  baseCtx.strokeStyle='#b28ace28';baseCtx.lineWidth=.8;baseCtx.stroke();
+  orbitCtx.clearRect(0,0,width,height);orbitCtx.save();
+  orbitCtx.translate(cx,cy-radius*.38);orbitCtx.rotate(-.13);
+  orbitCtx.beginPath();orbitCtx.ellipse(0,0,radius*1.31,radius*.235,0,0,Math.PI);
+  orbitCtx.strokeStyle='#aa71eeaa';orbitCtx.lineWidth=1.25;orbitCtx.stroke();
+  orbitCtx.beginPath();orbitCtx.arc(Math.cos(.8)*radius*1.31,Math.sin(.8)*radius*.235,2.5,0,Math.PI*2);
+  orbitCtx.fillStyle='#e2caff';orbitCtx.fill();orbitCtx.restore();
 }
-function resize(){const bounds=canvas.getBoundingClientRect();width=bounds.width;height=bounds.height;const dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);draw();}
-let last=0;
-function animate(now){if(now-last>45){phase+=.2;flightTime=now*.001;draw();last=now;}if(visible&&!motion.matches)raf=requestAnimationFrame(animate);}
-function updateAnimation(){cancelAnimationFrame(raf);if(visible&&!motion.matches)raf=requestAnimationFrame(animate);else draw();}
+function drawSurface(){
+  surfaceCtx.clearRect(0,0,width,height);
+  surfaceCtx.drawImage(base,0,0,width,height);
+  for(const points of compact?grids.small:grids.large)strokeCurve(surfaceCtx,points,'#b58de020',.55);
+  surfaceCtx.shadowBlur=compact?0:3;surfaceCtx.shadowColor='#af70ee55';
+  for(const points of outlines)strokeCurve(surfaceCtx,points,'#bf8effb5',.85);
+  surfaceCtx.shadowBlur=0;
+  for(const point of nodes){
+    const [x,y,z]=project(point);if(z<=.12)continue;
+    surfaceCtx.beginPath();surfaceCtx.arc(x,y,5,0,Math.PI*2);surfaceCtx.fillStyle='#b87cff19';surfaceCtx.fill();
+    surfaceCtx.beginPath();surfaceCtx.arc(x,y,1.8,0,Math.PI*2);surfaceCtx.fillStyle='#e0c5ff';surfaceCtx.fill();
+    surfaceCtx.beginPath();surfaceCtx.arc(x,y,5,0,Math.PI*2);surfaceCtx.strokeStyle='#cfa0ff44';surfaceCtx.lineWidth=.6;surfaceCtx.stroke();
+  }
+}
+function landingRing(point,progress){
+  if(progress<0||progress>1)return;
+  ctx.beginPath();ctx.arc(point[0],point[1],2+progress*(compact?9:13),0,Math.PI*2);
+  ctx.strokeStyle=`rgba(211,174,255,${(1-progress)*.7})`;ctx.lineWidth=1;ctx.stroke();
+  ctx.beginPath();ctx.arc(point[0],point[1],2.2,0,Math.PI*2);ctx.fillStyle=`rgba(240,222,255,${1-progress})`;ctx.fill();
+}
+function drawFlights(){
+  ctx.lineCap='round';ctx.lineJoin='round';
+  for(const route of flightRoutes){
+    const elapsed=motion.matches?route.duration*.55:(flightTime+route.delay)%6.6;
+    if(elapsed>route.duration+.7)continue;
+    const from=project(route.start),to=project(route.end);
+    if(from[2]<.12||to[2]<.12)continue;
+    const progress=Math.min(1,elapsed/route.duration),head=flightPoint(route,progress);
+    const fade=Math.min(1,elapsed/.3)*Math.max(0,1-(elapsed-route.duration)/.7);
+    ctx.beginPath();ctx.moveTo(from[0],from[1]);
+    for(let i=compact?2:1;i<progress*64;i+=compact?2:1){const p=project(route.points[i]);ctx.lineTo(p[0],p[1]);}
+    ctx.lineTo(head[0],head[1]);ctx.strokeStyle=`rgba(188,137,246,${.3*fade})`;ctx.lineWidth=1;ctx.stroke();
+    if(elapsed<route.duration){
+      const tail=Math.max(0,progress-.16),start=flightPoint(route,tail);
+      // One gradient stroke replaces many individually blurred tail segments.
+      if(progress>0){
+        const gradient=ctx.createLinearGradient(start[0],start[1],head[0],head[1]);
+        gradient.addColorStop(0,'#cda1ff00');gradient.addColorStop(1,'#e3c2ff');
+        ctx.beginPath();ctx.moveTo(start[0],start[1]);
+        const steps=compact?6:10;
+        for(let i=1;i<=steps;i++){const p=flightPoint(route,tail+(progress-tail)*i/steps);ctx.lineTo(p[0],p[1]);}
+        ctx.strokeStyle=gradient;ctx.lineWidth=1.8;ctx.stroke();
+      }
+      ctx.beginPath();ctx.arc(head[0],head[1],5,0,Math.PI*2);ctx.fillStyle='#c183ff30';ctx.fill();
+      ctx.beginPath();ctx.arc(head[0],head[1],2.3,0,Math.PI*2);ctx.fillStyle='#f5e9ff';ctx.fill();
+      if(elapsed<.5)landingRing(from,elapsed/.5);
+    }else landingRing(to,(elapsed-route.duration)/.7);
+  }
+}
+function draw(){
+  if(!width||!height)return;
+  ctx.clearRect(0,0,width,height);ctx.drawImage(surface,0,0,width,height);drawFlights();ctx.drawImage(orbit,0,0,width,height);
+}
+function resize(){
+  const bounds=canvas.getBoundingClientRect();compact=mobile.matches;
+  const nextWidth=bounds.width,nextHeight=bounds.height,dpr=Math.min(window.devicePixelRatio||1,compact?1.25:1.75);
+  if(width===nextWidth&&height===nextHeight&&canvas.width===Math.round(nextWidth*dpr))return;
+  width=nextWidth;height=nextHeight;radius=width*.338;cx=width/2;cy=height*(compact?.93:.99);
+  for(const [layer,context] of [[canvas,ctx],[base,baseCtx],[surface,surfaceCtx],[orbit,orbitCtx]]){
+    layer.width=Math.round(width*dpr);layer.height=Math.round(height*dpr);context.setTransform(dpr,0,0,dpr,0,0);
+  }
+  buildLayers();drawSurface();draw();
+}
+function active(){return inViewport&&!document.hidden&&!scrolling;}
+function animate(now){
+  if(!active()||motion.matches){raf=0;return;}
+  if(!lastTick)lastTick=now-1000/30;
+  const elapsed=now-lastTick;
+  if(elapsed>=1000/30-1){
+    const delta=Math.min(elapsed,100);lastTick=now;flightTime+=delta*.001;surfaceElapsed+=delta;
+    if(surfaceElapsed>=(compact?100:80)){
+      phase=(phase+surfaceElapsed*.0044)%360;spinSin=Math.sin(phase*rad);spinCos=Math.cos(phase*rad);
+      drawSurface();surfaceElapsed=0;
+    }
+    draw();
+  }
+  raf=requestAnimationFrame(animate);
+}
+function updateAnimation(){
+  cancelAnimationFrame(raf);raf=0;lastTick=0;
+  hero.classList.toggle('is-idle',!heroInViewport||document.hidden||scrolling||motion.matches);
+  if(active()){if(motion.matches)draw();else raf=requestAnimationFrame(animate);}
+}
 new ResizeObserver(resize).observe(canvas);
-new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;updateAnimation();}).observe(canvas);
+const observer=new IntersectionObserver(entries=>{
+  for(const entry of entries){if(entry.target===canvas)inViewport=entry.isIntersecting;else heroInViewport=entry.isIntersecting;}
+  updateAnimation();
+});
+observer.observe(hero);observer.observe(canvas);
 motion.addEventListener('change',updateAnimation);
-document.addEventListener('visibilitychange',()=>{visible=!document.hidden&&canvas.getBoundingClientRect().bottom>0;updateAnimation();});
+mobile.addEventListener('change',()=>{resize();updateAnimation();});
+document.addEventListener('visibilitychange',updateAnimation);
+// Let touch scrolling have the frame budget; resume automatically after it settles.
+window.addEventListener('scroll',()=>{
+  if(!compact||!heroInViewport)return;
+  if(!scrolling){scrolling=true;updateAnimation();}
+  clearTimeout(scrollTimer);scrollTimer=setTimeout(()=>{scrolling=false;updateAnimation();},160);
+},{passive:true});
