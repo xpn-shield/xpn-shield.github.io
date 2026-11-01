@@ -75,3 +75,5 @@ body{background-color:#07070b;background-image:radial-gradient(ellipse at 15% 5%
  .principles>span:after{display:none}.feature-number{padding:3px 6px;margin-bottom:20px}.connection-tag{letter-spacing:0}.globe-coordinate{font-size:6px}
  .feature-card:hover{transform:none}.feature-card:before{opacity:.13}.brand-visual{border-radius:5px}
 }
+
+@media(max-width:760px){.header-cta{height:35px;min-height:35px;padding-block:0;align-self:center}}
