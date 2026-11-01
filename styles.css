@@ -19,3 +19,7 @@
   .nav{justify-self:center;align-items:center;gap:clamp(18px,2.3vw,34px)}
   .nav a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;line-height:20px;white-space:nowrap}
 }
+
+.hero-actions{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;margin:0 20px}
+.hero-proxy-cta{background:linear-gradient(115deg,#191522,#100e16);border-color:#ffffff35;box-shadow:inset 0 1px #ffffff14}
+.hero-proxy-cta:hover{background:linear-gradient(115deg,#292039,#17131f);border-color:#b28aff}
