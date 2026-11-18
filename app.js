@@ -1,3 +1,10 @@
+const telegramFallback = document.querySelector('#telegram-fallback');
+document.querySelector('.hero-cta').addEventListener('click', () => {
+  setTimeout(() => {
+    telegramFallback.hidden = false;
+  }, 1000);
+}, { once: true });
+
 const menu = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('#mobile-nav');
 function closeMenu() { menu.setAttribute('aria-expanded', 'false'); menu.setAttribute('aria-label', 'Открыть меню'); navigation.hidden = true; }

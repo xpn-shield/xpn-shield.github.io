@@ -140,3 +140,15 @@ body{background-color:#07070b;background-image:radial-gradient(ellipse at 15% 5%
  .status-dot{animation:none}
 }
 @media(hover:none){.feature-card:hover{transform:none}.brand-visual:hover{box-shadow:none}}
+
+.cta-caption .telegram-fallback { display: block; margin-left: 0; }
+.telegram-fallback a:not([hidden]) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: 12px;
+  color: #d4c4ff;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: underline;
+}

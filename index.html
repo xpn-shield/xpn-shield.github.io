@@ -7,8 +7,8 @@
   <meta name="description" content="XPN — система безопасного подключения с высокой скоростью. Узнайте больше и начните подключение в Telegram.">
   <title>XPN — безопасное подключение на высокой скорости</title>
   <link rel="icon" href="assets/xpn-icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20261102-chips-globe">
-  <script src="app.js?v=20261102-mobile-chips" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20261118-telegram-fallback">
+  <script src="app.js?v=20261118-telegram-fallback" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">К содержимому</a>
@@ -18,10 +18,10 @@
       <nav class="nav" aria-label="Основная навигация">
         <a href="#about">О системе</a><a href="#features">Преимущества</a><a href="#start">Как подключиться</a>
       </nav>
-      <a class="button button-small header-cta" href="https://t.me/XPN_PRIVATE_BOT?start=ref2_82XtyKxvrHxAdKYM02h9NQ" target="_blank" rel="noopener noreferrer">Подключиться <span aria-hidden="true">↗</span></a>
+      <a class="button button-small header-cta" href="tg://resolve?domain=XPN_PRIVATE_BOT&amp;start=ref2_82XtyKxvrHxAdKYM02h9NQ">Подключиться <span aria-hidden="true">↗</span></a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Открыть меню"><span></span><span></span></button>
     </header>
-    <nav id="mobile-nav" class="mobile-nav" aria-label="Мобильная навигация" hidden><a href="#about">О системе</a><a href="#features">Преимущества</a><a href="#start">Как подключиться</a><a href="https://t.me/XPN_PRIVATE_BOT?start=ref2_82XtyKxvrHxAdKYM02h9NQ" target="_blank" rel="noopener noreferrer">XPN в Telegram ↗</a></nav>
+    <nav id="mobile-nav" class="mobile-nav" aria-label="Мобильная навигация" hidden><a href="#about">О системе</a><a href="#features">Преимущества</a><a href="#start">Как подключиться</a><a href="tg://resolve?domain=XPN_PRIVATE_BOT&amp;start=ref2_82XtyKxvrHxAdKYM02h9NQ">XPN в Telegram ↗</a></nav>
     <main id="main">
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-copy">
@@ -29,10 +29,15 @@
           <h1 id="hero-title">Ваше подключение.<br><span>На вашей стороне.</span></h1>
           <p class="hero-description">Система безопасного подключения XPN.<br>Больше свободы в сети. Больше скорости для вас.</p>
           <div class="hero-actions">
-          <a class="button hero-cta" href="https://t.me/XPN_PRIVATE_BOT?start=ref2_82XtyKxvrHxAdKYM02h9NQ" target="_blank" rel="noopener noreferrer">Начать с XPN <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 14-6-4 14-4-6-6-2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="m11 14 8-8" stroke="currentColor" stroke-width="1.6"/></svg></a>
+          <a class="button hero-cta" href="tg://resolve?domain=XPN_PRIVATE_BOT&amp;start=ref2_82XtyKxvrHxAdKYM02h9NQ">Начать с XPN <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 14-6-4 14-4-6-6-2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="m11 14 8-8" stroke="currentColor" stroke-width="1.6"/></svg></a>
           <a class="button hero-proxy-cta" href="tg://webproxy?server=edge.xpn.lol%2Ffid5kwc6jlrfxfx2&amp;secret=cFtwKuy4PcRSDKG7u0Wz3gw">Починить Telegram <span aria-hidden="true">↗</span></a>
           </div>
-          <span class="cta-caption">Подключение через Telegram <span aria-hidden="true">↗</span></span>
+          <span class="cta-caption">
+            Если Telegram не подключается, нажмите «Починить Telegram» и включите прокси.
+            <span class="telegram-fallback" aria-live="polite">
+              <a id="telegram-fallback" href="https://t.me/XPN_PRIVATE_BOT?start=ref2_82XtyKxvrHxAdKYM02h9NQ" target="_blank" rel="noopener noreferrer" hidden>Открыть через t.me</a>
+            </span>
+          </span>
         </div>
         <div class="hero-grid" aria-hidden="true"></div>
         <div class="globe-scene" aria-hidden="true">
@@ -59,10 +64,10 @@
         </div>
       </section>
       <section class="section start" id="start" aria-labelledby="start-title">
-        <div class="section-top"><div><span class="eyebrow">03 / ПЕРВЫЙ ШАГ</span><h2 id="start-title">Ближе к безопасной сети.</h2></div><a class="text-link" href="https://t.me/XPN_PRIVATE_BOT?start=ref2_82XtyKxvrHxAdKYM02h9NQ" target="_blank" rel="noopener noreferrer">Открыть XPN в Telegram <span aria-hidden="true">↗</span></a></div>
+        <div class="section-top"><div><span class="eyebrow">03 / ПЕРВЫЙ ШАГ</span><h2 id="start-title">Ближе к безопасной сети.</h2></div><a class="text-link" href="tg://resolve?domain=XPN_PRIVATE_BOT&amp;start=ref2_82XtyKxvrHxAdKYM02h9NQ">Открыть XPN в Telegram <span aria-hidden="true">↗</span></a></div>
         <div class="steps"><div><span>01</span><h3>Откройте Telegram</h3><p>Перейдите по кнопке в XPN.</p></div><div><span>02</span><h3>Узнайте подробности</h3><p>Ознакомьтесь с информацией о подключении.</p></div><div><span>03</span><h3>Начните с XPN</h3><p>Следуйте инструкциям в Telegram.</p></div></div>
       </section>
-      <section class="final-cta" aria-labelledby="final-title"><div class="cta-orbit" aria-hidden="true"></div><span class="eyebrow">ВАШ СЛЕДУЮЩИЙ ШАГ</span><h2 id="final-title">Скорость. Безопасность.<br><span>И вы — в сети.</span></h2><a class="button" href="https://t.me/XPN_PRIVATE_BOT?start=ref2_82XtyKxvrHxAdKYM02h9NQ" target="_blank" rel="noopener noreferrer">Подключиться к XPN <span aria-hidden="true">↗</span></a><span class="cta-caption">Всё необходимое — в Telegram</span></section>
+      <section class="final-cta" aria-labelledby="final-title"><div class="cta-orbit" aria-hidden="true"></div><span class="eyebrow">ВАШ СЛЕДУЮЩИЙ ШАГ</span><h2 id="final-title">Скорость. Безопасность.<br><span>И вы — в сети.</span></h2><a class="button" href="tg://resolve?domain=XPN_PRIVATE_BOT&amp;start=ref2_82XtyKxvrHxAdKYM02h9NQ">Подключиться к XPN <span aria-hidden="true">↗</span></a><span class="cta-caption">Всё необходимое — в Telegram</span></section>
     </main>
     <footer class="footer"><a class="brand" href="#" aria-label="XPN — на главную"><img src="assets/xpn-icon.svg" alt="" width="32" height="32"><span>XPN</span></a><p>Система безопасного подключения.</p><a href="https://t.me/XPNXPNXPN" target="_blank" rel="noopener noreferrer">Telegram <span aria-hidden="true">↗</span></a><a class="back-top" href="#">Наверх ↑</a></footer>
   </div>
